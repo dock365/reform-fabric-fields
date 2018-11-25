@@ -1,0 +1,49 @@
+{
+  "name": "@dock365/reform-fabric-fields",
+  "version": "0.0.2",
+  "description": "fabric fields reform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build-watch": "tsc --watch",
+    "patch-release": "npm version patch && npm publish --access=public && git push --follow-tags",
+    "minor-release": "npm version minor && npm publish --access=public && git push --follow-tags",
+    "major-release": "npm version major && npm publish --access=public && git push --follow-tags",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dock365/reform-fabric-fields.git"
+  },
+  "keywords": [
+    "reform",
+    "fabric",
+    "react",
+    "form",
+    "field"
+  ],
+  "author": "Hafeez Hamza <hafeez1042@gmail.com> (http://hafeezhamza.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dock365/reform-fabric-fields/issues"
+  },
+  "homepage": "https://github.com/dock365/reform-fabric-fields#readme",
+  "devDependencies": {
+    "@braces/tslint-config": "^0.3.1",
+    "@dock365/reform": "^0.4.6",
+    "@types/prop-types": "^15.5.6",
+    "@types/react": "15.6",
+    "@types/react-dom": "^15.5.8",
+    "office-ui-fabric-react": "^5.80.0",
+    "react": "15.6",
+    "react-dom": "15.6",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  },
+  "peerDependencies": {
+    "@dock365/reform": ">=0.4.5",
+    "office-ui-fabric-react": "^5.80.0",
+    "react": ">=15.6",
+    "react-dom": ">=15.6"
+  }
+}
