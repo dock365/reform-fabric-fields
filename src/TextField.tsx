@@ -17,4 +17,4 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   />
 );
 
-export default (TextField);
+export default ErrorHandlerHOC(TextField);

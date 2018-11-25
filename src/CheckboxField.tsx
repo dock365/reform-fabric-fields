@@ -17,4 +17,4 @@ const CheckboxField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   />
 );
 
-export default (CheckboxField);
+export default ErrorHandlerHOC(CheckboxField);

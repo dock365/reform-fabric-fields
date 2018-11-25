@@ -16,4 +16,4 @@ const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
   />
 );
 
-export default (DatePickerField);
+export default ErrorHandlerHOC(DatePickerField);

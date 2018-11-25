@@ -18,4 +18,4 @@ const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   />
 );
 
-export default (DropdownField);
+export default ErrorHandlerHOC(DropdownField);
