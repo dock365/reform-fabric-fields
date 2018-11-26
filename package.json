@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "build-watch": "tsc --watch",
     "patch-release": "npm version patch && npm publish --access=public && git push --follow-tags",
     "minor-release": "npm version minor && npm publish --access=public && git push --follow-tags",
