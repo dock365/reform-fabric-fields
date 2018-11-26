@@ -13,6 +13,7 @@ const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     options={props.options}
     selectedKey={props.value}
+    placeHolder={props.placeholder}
     onChanged={(option?: IDropdownOption, index?: number) => props.onChange && props.onChange(option && option.key)}
   />
 );
