@@ -6,7 +6,7 @@ const ErrorHandlerHOC = (FieldComponent: React.SFC<IFieldRenderProps & any>) => 
   (props: IFieldRenderProps) => (
     <div className={props.error && props.error.length > 0 ? "hasError" : ""}>
       <FieldComponent {...props} />
-      {props.error && props.error.length > 0 ?
+      {props.error ?
         <Errors error={props.error} /> : null}
     </div>
   )
