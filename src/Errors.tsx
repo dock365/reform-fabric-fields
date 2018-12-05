@@ -1,14 +1,14 @@
 import * as React from "react";
 
-const Errors: React.SFC<{ error: string }> = ({ error }) => (
+const Errorss: React.SFC<{ errors: string }> = ({ errors }) => (
   <div className="validation-errors" style={{
     color: "#a80000",
     fontSize: "12px",
     fontWeight: 400,
     lineHeight: 1.3,
   }}>
-    {error && <div className="error-item">{error}</div>}
+    {errors && <div className="error-item">{errors}</div>}
   </div>
 );
 
-export default Errors;
+export default Errorss;

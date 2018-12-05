@@ -1,13 +1,13 @@
 import * as React from "react";
 import { IFieldRenderProps } from "@dock365/reform";
-import Errors from "./Errors";
+import Errorss from "./Errors";
 
 const ErrorHandlerHOC = (FieldComponent: React.SFC<IFieldRenderProps & any>) => (
   (props: IFieldRenderProps) => (
-    <div className={props.error && props.error.length > 0 ? "hasError" : ""}>
+    <div className={props.errors && props.errors.length > 0 ? "hasError" : ""}>
       <FieldComponent {...props} />
-      {props.error ?
-        <Errors error={props.error} /> : null}
+      {props.errors ?
+        <Errorss errors={props.errors[0]} /> : null}
     </div>
   )
 );
