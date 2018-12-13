@@ -24,7 +24,7 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
     const calculatedDescription = showLength || description ?
       (
         description ?
-          `${this.props.customProps.description}${lengthDescription && ` - ${lengthDescription}`}` :
+          `${description}${lengthDescription && ` - ${lengthDescription}`}` :
           lengthDescription
       ) : "";
 
