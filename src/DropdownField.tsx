@@ -11,7 +11,8 @@ type propsOverride = {
 const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Dropdown
     label={props.label}
-    options={props.options}
+    // options={props.options}
+    {...props.customProps}
     selectedKey={props.value}
     placeHolder={props.placeholder}
     onChanged={(option?: IDropdownOption, index?: number) => props.onChange && props.onChange(option && option.key)}

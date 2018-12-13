@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const Errorss: React.SFC<{ errors: string }> = ({ errors }) => (
+const Errors: React.SFC<{ errors: string }> = ({ errors }) => (
   <div className="validation-errors" style={{
     color: "#a80000",
     fontSize: "12px",
@@ -11,4 +11,4 @@ const Errorss: React.SFC<{ errors: string }> = ({ errors }) => (
   </div>
 );
 
-export default Errorss;
+export default Errors;
