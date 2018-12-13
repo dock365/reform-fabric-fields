@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { IMultilineTextFieldState } from './IMultilineTextFieldState';
 import { TextField as FabricTextField } from 'office-ui-fabric-react/lib/TextField';
 import { IFieldRenderProps } from '@dock365/reform';
-import ErrorHandlerHOC from "../ErrorHandlerHOC";
+import ErrorHandlerHOC from "./ErrorHandlerHOC";
 import { validationTypes } from '@dock365/validator';
 
 type propsOverride = IFieldRenderProps & {
   onChange: (value?: string) => void;
   value: string;
 };
-class MultilineTextField extends React.PureComponent<propsOverride, IMultilineTextFieldState> {
+class MultilineTextField extends React.PureComponent<propsOverride, {}> {
   constructor(props: propsOverride) {
     super(props);
   }
