@@ -14,6 +14,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     placeholder={props.placeholder}
     onChanged={(value) => props.onChange && props.onChange(Number(value) || value)}
+    {...props.customProps}
   />
 );
 

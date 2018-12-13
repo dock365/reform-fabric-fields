@@ -14,6 +14,7 @@ const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
     value={props.value}
     placeholder={props.placeholder}
     onSelectDate={(date) => props.onChange && props.onChange(date)}
+    {...props.customProps}
   />
 );
 

@@ -14,6 +14,7 @@ const CheckboxField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     checked={props.value || false}
     onChange={(e, checked) => props.onChange && props.onChange(checked || false)}
+    {...props.customProps}
   />
 );
 

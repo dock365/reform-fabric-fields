@@ -17,6 +17,8 @@ const ChoiceGroupField: React.SFC<IFieldRenderProps & propsOverride> = (props) =
     options={props.options}
     onChange={(e, option) => props.onChange && props.onChange(option && option.key)}
     label={props.label}
+    {...props.customProps}
+
   />
 );
 
