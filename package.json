@@ -1,6 +1,6 @@
 {
   "name": "@dock365/reform-fabric-fields",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "fabric fields reform",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -49,6 +49,5 @@
     "react-dom": ">=15.6",
     "es6-promise": ">=4.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
