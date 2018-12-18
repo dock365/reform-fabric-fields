@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Rating } from 'office-ui-fabric-react/lib/Rating';
+import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating';
 import { IFieldRenderProps } from "@dock365/reform";
 import ErrorHandlerHOC from './ErrorHandlerHOC';
 
@@ -9,13 +9,13 @@ type propsOverride = {
   customProps: {
     min: number;
     max: number;
+    size: RatingSize;
   }
 };
 
 const RatingField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Rating
-    label={props.label}
-    rating={Number(props.value) | props.customProps.min}
+    rating={Number(props.value)}
     onChanged={(value) => {
       if (props.onChange)
         props.onChange(value);
@@ -24,6 +24,7 @@ const RatingField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     }}
     min={props.customProps.min}
     max={props.customProps.max}
+    size={props.customProps.size || RatingSize.Large}
   />
 
 );
