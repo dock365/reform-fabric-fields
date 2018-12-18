@@ -4,8 +4,7 @@ import { IFieldRenderProps } from "@dock365/reform";
 import ErrorHandlerHOC from './ErrorHandlerHOC';
 
 type propsOverride = {
-  onChange: (value?: string | number) => void;
-  value: string | number;
+  value: number;
   customProps: {
     min: number;
     max: number;
@@ -15,7 +14,7 @@ type propsOverride = {
 
 const RatingField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Rating
-    rating={Number(props.value)}
+    rating={props.value}
     onChanged={(value) => {
       if (props.onChange)
         props.onChange(value);

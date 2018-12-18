@@ -5,8 +5,6 @@ import ErrorHandlerHOC from "./ErrorHandlerHOC";
 import { validationTypes } from '@dock365/validator';
 
 type propsOverride = IFieldRenderProps & {
-  onChange: (value?: string) => void;
-  onBlur: (value?: string) => void;
   value: string;
   customProps: {
     decsription: string;

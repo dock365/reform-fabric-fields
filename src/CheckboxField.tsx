@@ -4,7 +4,6 @@ import { IFieldRenderProps } from "@dock365/reform";
 import ErrorHandlerHOC from "./ErrorHandlerHOC";
 
 type propsOverride = {
-  onChange: (checked: boolean) => void;
   value: boolean;
 };
 

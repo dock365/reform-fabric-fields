@@ -5,12 +5,11 @@ import ErrorHandlerHOC from './ErrorHandlerHOC';
 
 type propsOverride = {
   onChange: (value?: string | number) => void;
-  value: string | number;
+  value: number;
   customProps: {
     min: number;
     max: number;
     step: number;
-    defaultValue: number;
     showValue: boolean;
   }
 };
@@ -22,7 +21,7 @@ const SliderField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     min={props.customProps.min}
     max={props.customProps.max}
     step={props.customProps.step}
-    defaultValue={props.customProps.defaultValue}
+    value={props.value}
     showValue={props.customProps.showValue}
   />
 
