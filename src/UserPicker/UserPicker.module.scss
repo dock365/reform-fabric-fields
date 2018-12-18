@@ -1,0 +1,21 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/ThemeOverrides.scss';
+.peoplePicker {
+  :global(.ms-BasePicker-text) {
+    border: 0;
+  }
+  :global(.ms-BasePicker-input),
+  :global(ms-PickerPersona-container) {
+    border: 0;
+    border: dashed 1px transparent;
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+    background-color: transparent !important;
+    &:hover {
+      border-color: lighten(#a6a6a6, 20%);
+    }
+    &:focus {
+      border-color: $ms-color-neutralTertiary;
+    }
+  }
+}
