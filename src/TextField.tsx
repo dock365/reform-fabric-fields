@@ -14,7 +14,11 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     placeholder={props.placeholder}
     onChanged={(value) => props.onChange && props.onChange(Number(value) || value)}
-    {...props.customProps}
+    onBlur={(e) => {
+      const value = e.currentTarget.value;
+      if (props.onBlur)
+        props.onBlur(Number(value) || value);
+    }}
   />
 );
 

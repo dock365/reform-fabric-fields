@@ -6,7 +6,12 @@ import { validationTypes } from '@dock365/validator';
 
 type propsOverride = IFieldRenderProps & {
   onChange: (value?: string) => void;
+  onBlur: (value?: string) => void;
   value: string;
+  customProps: {
+    decsription: string;
+    rows: number;
+  }
 };
 class MultilineTextField extends React.PureComponent<propsOverride, {}> {
   constructor(props: propsOverride) {
@@ -39,7 +44,11 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
             if (this.props.onChange)
               this.props.onChange(Number(value) || value);
           }}
-          {...this.props.customProps}
+          onBlur={(e) => {
+            const value = e.currentTarget.value;
+            if (this.props.onBlur)
+              this.props.onBlur(Number(value) || value);
+          }}
           description={calculatedDescription}
           rows={this.props.customProps && this.props.customProps.rows || 4}
         />
