@@ -5,6 +5,7 @@ import ErrorHandlerHOC from './ErrorHandlerHOC';
 
 type propsOverride = {
   onChange: (value?: Date | null) => void;
+  onBlur: (value?: Date | null) => void;
   value: Date;
 };
 
@@ -13,8 +14,12 @@ const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
     label={props.label}
     value={props.value}
     placeholder={props.placeholder}
-    onSelectDate={(date) => props.onChange && props.onChange(date)}
-    {...props.customProps}
+    onSelectDate={(date) => {
+      if (props.onChange)
+        props.onChange(date);
+      if (props.onBlur)
+        props.onBlur(date);
+    }}
   />
 );
 

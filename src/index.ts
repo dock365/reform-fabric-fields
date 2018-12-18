@@ -5,3 +5,5 @@ export { default as ChoiceGroupField } from './ChoiceGroupField';
 export { default as ToggleField } from './ToggleField';
 export { default as TextField } from './TextField';
 export { default as MultilineTextField } from './MultilineTextField';
+export { default as RatingField } from './RatingField';
+export { default as SliderField } from './SliderField';

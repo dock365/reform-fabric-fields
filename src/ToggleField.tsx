@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { IFieldRenderProps } from "@dock365/reform";
 import ErrorHandlerHOC from "./ErrorHandlerHOC";
@@ -14,7 +13,6 @@ const ToggleField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     checked={props.value || false}
     onChanged={(checked) => props.onChange && props.onChange(checked || false)}
-    {...props.customProps}
   />
 );
 

@@ -5,6 +5,7 @@ import ErrorHandlerHOC from './ErrorHandlerHOC';
 
 type propsOverride = {
   onChange: (value?: string | number) => void;
+  onBlur: (value?: string | number) => void;
   value: string | number;
 };
 
@@ -13,8 +14,12 @@ const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     selectedKey={props.value}
     placeHolder={props.placeholder}
-    onChanged={(option?: IDropdownOption, index?: number) => props.onChange && props.onChange(option && option.key)}
-    {...props.customProps}
+    onChanged={(option?: IDropdownOption, index?: number) => {
+      if (props.onChange)
+        props.onChange(option && option.key);
+      if (props.onBlur)
+        props.onBlur(option && option.key);
+    }}
   />
 );
 
