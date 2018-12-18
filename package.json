@@ -1,12 +1,13 @@
 {
   "name": "@dock365/reform-fabric-fields",
-  "version": "0.4.1",
+  "version": "0.5.0.alpha-0",
   "description": "fabric fields reform",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
+    "release": "npm publish --access=public && git push --follow-tags",
     "patch-release": "npm version patch && npm publish --access=public && git push --follow-tags",
     "minor-release": "npm version minor && npm publish --access=public && git push --follow-tags",
     "major-release": "npm version major && npm publish --access=public && git push --follow-tags",
