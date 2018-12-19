@@ -2,6 +2,7 @@ import * as React from "react";
 import { TextField as FabricTextField } from 'office-ui-fabric-react/lib/TextField';
 import { IFieldRenderProps } from "@dock365/reform";
 import ErrorHandlerHOC from "./ErrorHandlerHOC";
+import { validationTypes } from "@dock365/validator";
 
 type propsOverride = {
   onChange: (value?: string) => void;
@@ -13,11 +14,18 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     value={props.value}
     label={props.label}
     placeholder={props.placeholder}
-    onChanged={(value) => props.onChange && props.onChange(Number(value) || value)}
+    onChanged={(value) => props.onChange && props.onChange(
+      props.validationRules &&
+      props.validationRules.type === validationTypes.Number &&
+      Number(value) || value,
+    )}
     onBlur={(e) => {
       const value = e.currentTarget.value;
       if (props.onBlur)
-        props.onBlur(Number(value) || value);
+        props.onBlur(
+          props.validationRules &&
+          props.validationRules.type === validationTypes.Number &&
+          Number(value) || value);
     }}
   />
 );
