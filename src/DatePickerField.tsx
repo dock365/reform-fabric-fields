@@ -10,17 +10,35 @@ type propsOverride = {
 };
 
 const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
-  <DatePicker
-    label={props.label}
-    value={props.value}
-    placeholder={props.placeholder}
-    onSelectDate={(date) => {
-      if (props.onChange)
-        props.onChange(date);
-      if (props.onBlur)
-        props.onBlur(date);
-    }}
-  />
+  <div>
+    <DatePicker
+      label={props.label}
+      value={props.value}
+      placeholder={props.placeholder}
+      onSelectDate={(date) => {
+        if (props.onChange)
+          props.onChange(date);
+        if (props.onBlur)
+          props.onBlur(date);
+      }}
+      allowTextInput={props.customProps && props.customProps.allowTextInput}
+      disableAutoFocus={props.customProps && props.customProps.disableAutoFocus}
+    />
+    {
+      props.customProps.showClearBtn &&
+      <div style={{ textAlign: "right" }}>
+        <span
+          style={{
+            fontSize: "13px",
+            padding: "2px 5px",
+            cursor: "pointer",
+            color: "blue",
+          }}
+          onClick={() => props.onChange(null)}
+        >Clear</span>
+      </div>
+    }
+  </div>
 );
 
 export default ErrorHandlerHOC(DatePickerField);
