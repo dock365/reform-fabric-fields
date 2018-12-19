@@ -25,7 +25,7 @@ const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
       disableAutoFocus={props.customProps && props.customProps.disableAutoFocus}
     />
     {
-      props.customProps.showClearBtn &&
+      props.customProps && props.customProps.showClearBtn &&
       <div style={{ textAlign: "right" }}>
         <span
           style={{
