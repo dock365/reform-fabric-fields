@@ -19,11 +19,12 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
   public render(): JSX.Element {
     const showLength = this.props.customProps && this.props.customProps.showLength;
     const description = this.props.customProps && this.props.customProps.description;
+    const valueLength = this.props.value && this.props.value.length || 0;
     const maxLength = this.props.validationRules &&
       this.props.validationRules.type === validationTypes.String &&
       this.props.validationRules.maxLength;
 
-    const lengthDescription = showLength ? `${this.props.value.length}${maxLength && `/${maxLength}`}` : "";
+    const lengthDescription = showLength ? `${valueLength}${maxLength && `/${maxLength}`}` : "";
     const calculatedDescription = showLength || description ?
       (
         description ?
@@ -32,25 +33,31 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
       ) : "";
 
     return (
-      <div >
-        <FabricTextField
-          value={this.props.value}
-          label={this.props.label}
-          placeholder={this.props.placeholder}
-          multiline
-          onChanged={(value) => {
-            if (this.props.onChange)
-              this.props.onChange(Number(value) || value);
-          }}
-          onBlur={(e) => {
-            const value = e.currentTarget.value;
-            if (this.props.onBlur)
-              this.props.onBlur(Number(value) || value);
-          }}
-          description={calculatedDescription}
-          rows={this.props.customProps && this.props.customProps.rows || 4}
-        />
-      </div>
+      <FabricTextField
+        value={this.props.value}
+        label={this.props.label}
+        placeholder={this.props.placeholder}
+        multiline
+        onChanged={(value) => {
+          if (this.props.onChange)
+            this.props.onChange(
+              this.props.validationRules &&
+              this.props.validationRules.type === validationTypes.Number &&
+              Number(value) || value,
+            );
+        }}
+        onBlur={(e) => {
+          const value = e.currentTarget.value;
+          if (this.props.onBlur)
+            this.props.onBlur(
+              this.props.validationRules &&
+              this.props.validationRules.type === validationTypes.Number &&
+              Number(value) || value,
+            );
+        }}
+        description={calculatedDescription}
+        rows={this.props.customProps && this.props.customProps.rows || 4}
+      />
     );
   }
 }
