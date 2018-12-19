@@ -84,14 +84,26 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
   }
 
   private _setSelectedUser(userId?: number | IUser) {
-    if (userId && this.props.getUserById) {
-      this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
-        .then((user: IUser) => {
-          this.setState({ selectedUser: [this._transformToPersona(user)] });
-        })
-        .catch((err: any) => {
-          this.setState({ selectedUser: [] });
-        });
+    if (userId) {
+      let selectedUser: IUser | null = null;
+      if (this.props.users && this.props.users.length > 0) {
+        for (const user of this.props.users) {
+          if (user.Id === userId) {
+            selectedUser = user;
+            this.setState({ selectedUser: [this._transformToPersona(user)] });
+            break;
+          }
+        }
+      }
+      if (!selectedUser && this.props.getUserById) {
+        this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
+          .then((user: IUser) => {
+            this.setState({ selectedUser: [this._transformToPersona(user)] });
+          })
+          .catch((err: any) => {
+            this.setState({ selectedUser: [] });
+          });
+      }
     } else {
       this.setState({ selectedUser: [] });
     }
@@ -112,7 +124,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
       this.props.onSelect(user);
     } else {
       this._setSelectedUser();
-      this.props.onSelect();
+      this.props.onSelect(null);
     }
   }
 
@@ -133,8 +145,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
             )
             .map(user => this._transformToPersona(user)),
           );
-        }
-        if (this.props.searchUsers) {
+        } else if (this.props.searchUsers) {
           this.props.searchUsers(filterText)
             .then((users: IUser[]) => {
               resolve(users.map(user => this._transformToPersona(user)));

@@ -1,7 +1,7 @@
 import { IUser } from "./UserPicker";
 
 export interface IUserPickerProps {
-  onSelect: (user?: IUser) => void;
+  onSelect: (user?: IUser | null) => void;
   value?: number;
   className?: string;
   users?: IUser[];

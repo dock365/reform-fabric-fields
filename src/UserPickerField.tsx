@@ -5,8 +5,8 @@ import ErrorHandlerHOC from "./ErrorHandlerHOC";
 import { UserPicker, IUser } from "./UserPicker/UserPicker";
 
 type propsOverride = {
-  onChange: (value?: number) => void;
-  onBlur: (value?: number) => void;
+  onChange: (value?: number | null) => void;
+  onBlur: (value?: number | null) => void;
   value?: number;
 };
 
@@ -15,15 +15,15 @@ const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
     <label htmlFor="">{props.label}</label>
     <UserPicker
       value={props.value}
-      onSelect={(user?: IUser) => {
+      onSelect={(user?: IUser | null) => {
         if (props.onChange)
           props.onChange(user && user.Id);
         if (props.onBlur)
           props.onBlur(user && user.Id);
       }}
-      users={props.customProps.users}
-      searchUsers={props.customProps.searchUsers}
-      getUserById={props.customProps.getUserById}
+      users={props.customProps && props.customProps.users}
+      searchUsers={props.customProps && props.customProps.searchUsers}
+      getUserById={props.customProps && props.customProps.getUserById}
     />
   </div>
 );
