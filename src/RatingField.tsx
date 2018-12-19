@@ -21,9 +21,9 @@ const RatingField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
       if (props.onBlur)
         props.onBlur(value);
     }}
-    min={props.customProps.min}
-    max={props.customProps.max}
-    size={props.customProps.size || RatingSize.Large}
+    min={props.customProps && props.customProps.min || 1}
+    max={props.customProps && props.customProps.max || 5}
+    size={props.customProps && props.customProps.size || RatingSize.Large}
   />
 
 );
