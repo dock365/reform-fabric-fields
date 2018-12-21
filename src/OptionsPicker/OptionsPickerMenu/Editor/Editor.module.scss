@@ -1,0 +1,37 @@
+.optionItem {
+
+  .colorIndicator {
+    vertical-align: top;
+    display: inline-block;
+    width: 10px;
+    height: 29px;
+    background-color: #fff;
+  }
+  &.newOptionItem {
+    opacity: 0.7;
+    height: 29px;
+    border: thin dashed #ccc;
+    width: 140px;
+    box-sizing: border-box;
+  }
+  .deleteOptionBtn {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 3px;
+    opacity: 0;
+    top: 5px;
+    i {
+      font-size: 8px;
+    }
+  }
+  &:hover {
+    .deleteOptionBtn {
+      opacity: 1;
+    }
+  }
+}
+
+
