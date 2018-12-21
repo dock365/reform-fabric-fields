@@ -22,7 +22,7 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
     const valueLength = this.props.value && this.props.value.length || 0;
     const maxLength = this.props.validationRules &&
       this.props.validationRules.type === validationTypes.String &&
-      this.props.validationRules.maxLength;
+      this.props.validationRules.maxLength || "";
 
     const lengthDescription = showLength ? `${valueLength}${maxLength && `/${maxLength}`}` : "";
     const calculatedDescription = showLength || description ?

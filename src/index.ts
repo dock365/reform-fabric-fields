@@ -8,3 +8,4 @@ export { default as MultilineTextField } from './MultilineTextField';
 export { default as RatingField } from './RatingField';
 export { default as SliderField } from './SliderField';
 export { default as UserPickerField } from './UserPickerField';
+export {default as OptionsPickerField} from './OptionsPickerField';
