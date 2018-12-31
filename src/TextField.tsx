@@ -16,18 +16,18 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     placeholder={props.placeholder}
     onChanged={(value) => props.onChange && props.onChange(
       props.validationRules &&
-      props.validationRules.type === validationTypes.Number &&
-      !isNaN(Number(value)) &&
-      Number(value) || value,
+        props.validationRules.type === validationTypes.Number &&
+        !isNaN(Number(value)) ?
+        Number(value) : value,
     )}
     onBlur={(e) => {
       const value = e.currentTarget.value;
       if (props.onBlur)
         props.onBlur(
           props.validationRules &&
-          props.validationRules.type === validationTypes.Number &&
-          !isNaN(Number(value)) &&
-          Number(value) || value);
+            props.validationRules.type === validationTypes.Number &&
+            !isNaN(Number(value)) ?
+            Number(value) : value);
     }}
   />
 );
