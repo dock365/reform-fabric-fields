@@ -17,6 +17,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     onChanged={(value) => props.onChange && props.onChange(
       props.validationRules &&
       props.validationRules.type === validationTypes.Number &&
+      !isNaN(Number(value)) &&
       Number(value) || value,
     )}
     onBlur={(e) => {
@@ -25,6 +26,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
         props.onBlur(
           props.validationRules &&
           props.validationRules.type === validationTypes.Number &&
+          !isNaN(Number(value)) &&
           Number(value) || value);
     }}
   />
