@@ -70,7 +70,6 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
         selectedItems={this.state.selectedUser}
         itemLimit={this.props.itemLimit}
         resolveDelay={500}
-      // onItemSelected={this._onSelected}
       />
     );
   }
