@@ -41,7 +41,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
   }
 
   public componentDidUpdate(prevProps: IUserPickerProps) {
-    if (this.props.values !== prevProps.values) {
+    if ((!prevProps.values || prevProps.values.length === 0) && this.props.values && this.props.values.length > 0) {
       this._setSelectedUser(this.props.values);
     }
   }
@@ -60,25 +60,12 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     return (
       <NormalPeoplePicker
         onResolveSuggestions={this._onFilterChanged}
-        // onEmptyInputFocus={this._returnMostRecentlyUsed}
-        // getTextFromItem={this._getTextFromItem}
         onChange={this._onChange}
         pickerSuggestionsProps={suggestionProps}
-        // key={'normal'}
-        // onRemoveSuggestion={this._onRemoveSuggestion}
-        // onValidateInput={this._validateInput}
-        // removeButtonAriaLabel={'Remove'}
-        // inputProps={{
-        //   onBlur: (ev: React.FocusEvent<HTMLInputElement>) => console.log('onBlur called'),
-        //   onFocus: (ev: React.FocusEvent<HTMLInputElement>) => console.log('onFocus called'),
-        //   'aria-label': 'People Picker'
-        // }}
-        // componentRef={this._resolveRef('_picker')}
         selectedItems={this.state.selectedUser}
         itemLimit={this.props.itemLimit}
         resolveDelay={500}
         onItemSelected={this._onSelected}
-      // className={this.props.className ? this.props.className : styles.peoplePicker}
       />
     );
   }
