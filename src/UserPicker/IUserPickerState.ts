@@ -1,5 +1,5 @@
-import { IPersona } from "office-ui-fabric-react/lib/Persona";
+import { IPersonaProps } from "office-ui-fabric-react/lib/Persona";
 
 export interface IUserPickerState {
-  selectedUser: IPersona[];
+  selectedUser: IPersonaProps[];
 }

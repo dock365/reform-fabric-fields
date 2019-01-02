@@ -6,7 +6,7 @@ import { BaseComponent, assign } from 'office-ui-fabric-react/lib/Utilities';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
-import { IPersonaProps, Persona, IPersona } from 'office-ui-fabric-react/lib/Persona';
+import { IPersonaSharedProps, Persona, IPersona } from 'office-ui-fabric-react/lib/Persona';
 import {
   IBasePickerSuggestionsProps,
   NormalPeoplePicker,
@@ -41,7 +41,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
   }
 
   public componentDidUpdate(prevProps: IUserPickerProps) {
-    if ((!prevProps.values || prevProps.values.length === 0) && this.props.values && this.props.values.length > 0) {
+    if (!prevProps.values && this.props.values) {
       this._setSelectedUser(this.props.values);
     }
   }
@@ -65,7 +65,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
         selectedItems={this.state.selectedUser}
         itemLimit={this.props.itemLimit}
         resolveDelay={500}
-        onItemSelected={this._onSelected}
+      // onItemSelected={this._onSelected}
       />
     );
   }
@@ -89,7 +89,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
         if (!selectedUser && this.props.getUserById) {
           this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
             .then((user: IUser) => {
-              this.setState(prevState => ({
+              this.setState((prevState: IUserPickerState) => ({
                 selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
               }));
             })
@@ -103,19 +103,21 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     }
   }
 
-  private _onSelected(persona?: IPersona): any {
-
+  private _onSelected(persona?: IPersonaSharedProps): any {
     // this.props.onSelect(person, this.props.field, this.props.taskId);
     this._setSelectedUser([this._transformFromPersona(persona)]);
 
     return persona;
   }
 
-  private _onChange(personas?: IPersonaProps[]) {
+  private _onChange(personas?: IPersonaSharedProps[]) {
     // const prevUser = this.state.selectedUser.length > 0 ? { ...this.state.selectedUser[0] } : {};
     if (personas && personas.length > 0) {
       const users = personas.map(persona => this._transformFromPersona(persona));
       // this._setSelectedUser(users);
+      this.setState({
+        selectedUser: personas,
+      });
       this.props.onSelect(users);
     } else {
       // this._setSelectedUser();
@@ -125,9 +127,9 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   private _onFilterChanged = (
     filterText: string,
-    currentPersonas?: IPersonaProps[],
+    currentPersonas?: IPersonaSharedProps[],
     limitResults?: number,
-  ): IPersonaProps[] | Promise<IPersonaProps[]> => {
+  ): IPersonaSharedProps[] | Promise<IPersonaSharedProps[]> => {
     if (filterText) {
       //WARNING: Using ajax promise. didnt find any way to use redux.
       return new Promise((resolve, reject) => {
@@ -136,14 +138,25 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
             .filter(user =>
               user.Title
                 .toLowerCase()
-                .indexOf(filterText.toLowerCase()) >= 0,
+                .indexOf(filterText.toLowerCase()) >= 0 &&
+              this.state.selectedUser.every(
+                (persona?: IPersonaSharedProps & { Id: number } & any) => persona.Id !== user.Id,
+              ),
             )
             .map(user => this._transformToPersona(user)),
           );
         } else if (this.props.searchUsers) {
           this.props.searchUsers(filterText)
             .then((users: IUser[]) => {
-              resolve(users.map(user => this._transformToPersona(user)));
+              resolve(
+                users
+                  .filter(user =>
+                    this.state.selectedUser.every(
+                      (persona?: IPersonaSharedProps & { Id: number } & any) => persona.Id !== user.Id,
+                    ),
+                  )
+                  .map(user => this._transformToPersona(user)),
+              );
             })
             .catch((err: any) => {
               reject(err);
@@ -156,7 +169,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   }
 
-  private _transformToPersona(user: IUser): IPersonaProps & { Id: number } & any {
+  private _transformToPersona(user: IUser): IPersonaSharedProps & { Id: number } & any {
     return {
       primaryText: user.Title,
       Id: user.Id,
@@ -164,7 +177,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     };
   }
 
-  private _transformFromPersona(user: IPersonaProps & { Id: number } & any): IUser {
+  private _transformFromPersona(user: IPersonaSharedProps & { Id: number } & any): IUser {
     return {
       Id: user.Id,
       Designation: user.Designation,
