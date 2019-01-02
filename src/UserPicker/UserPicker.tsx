@@ -35,14 +35,14 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     this._onChange = this._onChange.bind(this);
   }
   public componentDidMount() {
-    if (this.props.value) {
-      this._setSelectedUser(this.props.value);
+    if (this.props.values) {
+      this._setSelectedUser(this.props.values);
     }
   }
 
   public componentDidUpdate(prevProps: IUserPickerProps) {
-    if (this.props.value !== prevProps.value) {
-      this._setSelectedUser(this.props.value);
+    if (this.props.values !== prevProps.values) {
+      this._setSelectedUser(this.props.values);
     }
   }
 
@@ -75,7 +75,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
         // }}
         // componentRef={this._resolveRef('_picker')}
         selectedItems={this.state.selectedUser}
-        itemLimit={1}
+        itemLimit={this.props.itemLimit}
         resolveDelay={500}
         onItemSelected={this._onSelected}
       // className={this.props.className ? this.props.className : styles.peoplePicker}
@@ -83,47 +83,55 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     );
   }
 
-  private _setSelectedUser(userId?: number | IUser) {
-    if (userId) {
-      let selectedUser: IUser | null = null;
-      if (this.props.users && this.props.users.length > 0) {
-        for (const user of this.props.users) {
-          if (user.Id === userId) {
-            selectedUser = user;
-            this.setState({ selectedUser: [this._transformToPersona(user)] });
-            break;
+  private _setSelectedUser(userIds?: number[] | IUser[]) {
+    if (userIds && userIds.length >= 0) {
+      // if (userIds) {
+      for (const userId of userIds) {
+        let selectedUser: IUser | null = null;
+        if (this.props.users && this.props.users.length > 0) {
+          for (const user of this.props.users) {
+            if (user.Id === userId) {
+              selectedUser = user;
+              this.setState(prevState => ({
+                selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
+              }));
+              break;
+            }
           }
         }
-      }
-      if (!selectedUser && this.props.getUserById) {
-        this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
-          .then((user: IUser) => {
-            this.setState({ selectedUser: [this._transformToPersona(user)] });
-          })
-          .catch((err: any) => {
-            this.setState({ selectedUser: [] });
-          });
+        if (!selectedUser && this.props.getUserById) {
+          this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
+            .then((user: IUser) => {
+              this.setState(prevState => ({
+                selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
+              }));
+            })
+            .catch((err: any) => {
+              // this.setState({ selectedUser: [] });
+            });
+        }
       }
     } else {
-      this.setState({ selectedUser: [] });
+      // this.setState({ selectedUser: [] });
     }
   }
 
-  private _onSelected(person?: IPersona): any {
+  private _onSelected(persona?: IPersona): any {
 
     // this.props.onSelect(person, this.props.field, this.props.taskId);
-    // this._setSelectedUser(person);
-    return person;
+    this._setSelectedUser([this._transformFromPersona(persona)]);
+
+    return persona;
   }
 
-  private _onChange(users?: IPersonaProps[]) {
-    const prevUser = this.state.selectedUser.length > 0 ? { ...this.state.selectedUser[0] } : {};
-    if (users && users.length > 0) {
-      const user = this._transformFromPersona(users[0]);
-      this._setSelectedUser(user);
-      this.props.onSelect(user);
+  private _onChange(personas?: IPersonaProps[]) {
+    // const prevUser = this.state.selectedUser.length > 0 ? { ...this.state.selectedUser[0] } : {};
+    if (personas && personas.length > 0) {
+      const users = personas.map(persona => this._transformFromPersona(persona));
+      // this._setSelectedUser(users);
+      this.props.onSelect(users);
     } else {
-      this._setSelectedUser();
+      // this._setSelectedUser();
       this.props.onSelect(null);
     }
   }
