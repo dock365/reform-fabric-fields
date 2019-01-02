@@ -41,9 +41,9 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
   }
 
   public componentDidUpdate(prevProps: IUserPickerProps) {
-    if (!prevProps.values && this.props.values) {
-      this._setSelectedUser(this.props.values);
-    }
+    // if (!prevProps.values && this.props.values) {
+    //   this._setSelectedUser(this.props.values);
+    // }
   }
 
   public render(): JSX.Element {
@@ -115,14 +115,15 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     if (personas && personas.length > 0) {
       const users = personas.map(persona => this._transformFromPersona(persona));
       // this._setSelectedUser(users);
-      this.setState({
-        selectedUser: personas,
-      });
+
       this.props.onSelect(users);
     } else {
       // this._setSelectedUser();
       this.props.onSelect(null);
     }
+    this.setState({
+      selectedUser: personas || [],
+    });
   }
 
   private _onFilterChanged = (
