@@ -25,6 +25,7 @@ export interface IUser {
 }
 
 export class UserPicker extends React.Component<IUserPickerProps, IUserPickerState> {
+  private updated = false;
   constructor() {
     super();
 
@@ -40,10 +41,14 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     }
   }
 
-  public componentDidUpdate(prevProps: IUserPickerProps) {
-    // if (!prevProps.values && this.props.values) {
-    //   this._setSelectedUser(this.props.values);
-    // }
+  public componentDidUpdate(prevProps: IUserPickerProps, prevState: IUserPickerState) {
+    if (
+      prevProps.values === undefined &&
+      this.props.values &&
+      this.props.values.length > 0
+    ) {
+      this._setSelectedUser(this.props.values);
+    }
   }
 
   public render(): JSX.Element {
