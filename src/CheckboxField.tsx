@@ -10,7 +10,7 @@ type propsOverride = {
 const CheckboxField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Checkbox
     label={props.label}
-    checked={props.value || false}
+    checked={props.value}
     onChange={(e, checked) => {
       if (props.onChange)
         props.onChange(checked || false);
