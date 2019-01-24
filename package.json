@@ -32,7 +32,7 @@
   "homepage": "https://github.com/dock365/reform-fabric-fields#readme",
   "devDependencies": {
     "@braces/tslint-config": "^0.3.1",
-    "@dock365/reform": "^0.5.7",
+    "@dock365/reform": "^0.7.0",
     "@types/prop-types": "^15.5.6",
     "@types/react": "15.6",
     "@types/react-dom": "^15.5.8",
@@ -44,7 +44,7 @@
     "typescript": "^3.1.6"
   },
   "peerDependencies": {
-    "@dock365/reform": ">=0.5.5",
+    "@dock365/reform": ">=0.7.0",
     "office-ui-fabric-react": "^5.80.0",
     "react": ">=15.6",
     "react-dom": ">=15.6",

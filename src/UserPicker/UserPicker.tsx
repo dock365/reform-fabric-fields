@@ -45,7 +45,8 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     if (
       prevProps.values === undefined &&
       this.props.values &&
-      this.props.values.length > 0
+      this.props.values.length > 0 &&
+      this.state.selectedUser.length === 0
     ) {
       this._setSelectedUser(this.props.values);
     }
