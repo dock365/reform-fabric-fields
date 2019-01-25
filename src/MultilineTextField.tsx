@@ -6,6 +6,7 @@ import { validationTypes } from '@dock365/validator';
 
 type propsOverride = IFieldRenderProps & {
   value: string;
+  className: string;
   customProps: {
     decsription: string;
     rows: number;
@@ -37,6 +38,7 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
         value={this.props.value}
         label={this.props.label}
         placeholder={this.props.placeholder}
+        className={this.props.className}
         multiline
         onChanged={(value) => {
           if (this.props.onChange)

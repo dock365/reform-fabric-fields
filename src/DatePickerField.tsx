@@ -7,10 +7,11 @@ type propsOverride = {
   onChange: (value?: Date | null) => void;
   onBlur: (value?: Date | null) => void;
   value: Date;
+  className: string;
 };
 
 const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
-  <div>
+  <div className={props.className}>
     <DatePicker
       label={props.label}
       value={props.value}

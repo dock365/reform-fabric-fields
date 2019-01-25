@@ -7,6 +7,7 @@ type propsOverride = {
   onChange: (value?: string | number) => void;
   onBlur: (value?: string | number) => void;
   value: string | number;
+  className: string;
   customProps: {
     options: IChoiceGroupOption[];
   }
@@ -16,6 +17,7 @@ const ChoiceGroupField: React.SFC<IFieldRenderProps & propsOverride> = (props) =
   <ChoiceGroup
     label={props.label}
     selectedKey={props.value}
+    className={props.className}
     options={props.customProps && props.customProps.options}
     onChange={(e, option) => {
       if (props.onChange)

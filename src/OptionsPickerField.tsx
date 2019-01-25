@@ -7,10 +7,11 @@ type propsOverride = {
   onChange: (value?: number) => void;
   onBlur: (value?: number) => void;
   value: number;
+  className: string;
 };
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
-  <div>
+  <div className={props.className}>
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <OptionsPicker
       activeOption={props.value}

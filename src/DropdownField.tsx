@@ -7,6 +7,7 @@ type propsOverride = {
   onChange: (value?: string | number) => void;
   onBlur: (value?: string | number) => void;
   value: string | number;
+  className: string;
 };
 
 const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
@@ -14,6 +15,7 @@ const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     selectedKey={props.value}
     placeHolder={props.placeholder}
+    className={props.className}
     options={props.customProps && props.customProps.options || []}
     onChanged={(option?: IDropdownOption, index?: number) => {
       if (props.onChange)

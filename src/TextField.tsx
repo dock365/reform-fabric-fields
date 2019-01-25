@@ -7,10 +7,12 @@ import { validationTypes } from "@dock365/validator";
 type propsOverride = {
   onChange: (value?: string) => void;
   value: string;
+  className?: string;
 };
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <FabricTextField
+    className={props.className}
     value={props.value}
     label={props.label}
     placeholder={props.placeholder}
