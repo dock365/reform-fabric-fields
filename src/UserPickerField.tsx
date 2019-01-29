@@ -8,13 +8,15 @@ type propsOverride = {
   onChange: (value?: number | number[] | null) => void;
   onBlur: (value?: number | number[] | null) => void;
   value?: number | number[];
-  className: string;
+  className?: string;
+  readOnly?: boolean;
 };
 
 const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <div>
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <UserPicker
+      readOnly={props.readOnly}
       values={Array.isArray(props.value) ? props.value : props.value !== undefined ? [props.value] : undefined}
       onSelect={(users?: IUser[] | null) => {
         let ids: number | number[] = users && users.length > 0 && users.map(user => user.Id) || [];

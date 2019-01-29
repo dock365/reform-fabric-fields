@@ -8,10 +8,12 @@ type propsOverride = {
   onBlur: (value?: string | number) => void;
   value: string | number;
   className: string;
+  readOnly?: boolean;
 };
 
 const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Dropdown
+    disabled={props.readOnly}
     label={props.label}
     selectedKey={props.value}
     placeHolder={props.placeholder}

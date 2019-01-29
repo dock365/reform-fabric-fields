@@ -10,5 +10,6 @@ export interface IOptionsPickerProps {
   onSelect?: (option: IOptionsPickerOption) => void;
   onSaveChange?: (options: IOptionsPickerOption[], deletedIds: number[]) => void;
   editable?: boolean;
+  readOnly?: boolean;
   colors: IColors;
 }

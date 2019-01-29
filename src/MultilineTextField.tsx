@@ -7,6 +7,7 @@ import { validationTypes } from '@dock365/validator';
 type propsOverride = IFieldRenderProps & {
   value: string;
   className: string;
+  readOnly?: boolean;
   customProps: {
     decsription: string;
     rows: number;
@@ -38,6 +39,7 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
         value={this.props.value}
         label={this.props.label}
         placeholder={this.props.placeholder}
+        readOnly={this.props.readOnly}
         multiline
         onChanged={(value) => {
           if (this.props.onChange)

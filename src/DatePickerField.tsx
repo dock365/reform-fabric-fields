@@ -8,11 +8,13 @@ type propsOverride = {
   onBlur: (value?: Date | null) => void;
   value: Date;
   className: string;
+  readOnly?: boolean;
 };
 
 const DatePickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <div >
     <DatePicker
+    disabled={props.readOnly}
       label={props.label}
       value={props.value}
       placeholder={props.placeholder}

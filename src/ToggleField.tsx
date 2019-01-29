@@ -7,10 +7,12 @@ type propsOverride = {
   onChange: (checked: boolean) => void;
   value: boolean;
   className: string;
+  readOnly?: boolean;
 };
 
 const ToggleField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Toggle
+    disabled={props.readOnly}
     label={props.label}
     checked={props.value || false}
     onChanged={(checked) => props.onChange && props.onChange(checked || false)}

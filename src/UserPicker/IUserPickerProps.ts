@@ -8,4 +8,5 @@ export interface IUserPickerProps {
   searchUsers?: (filter: string) => Promise<IUser[]>;
   getUserById?: (id: number) => Promise<IUser>;
   itemLimit?: number;
+  readOnly?: boolean;
 }

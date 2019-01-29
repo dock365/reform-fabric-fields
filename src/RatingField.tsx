@@ -11,12 +11,14 @@ type propsOverride = {
     size: RatingSize;
   }
   className: string;
+  readOnly?: boolean;
 };
 
 const RatingField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <div>
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <Rating
+      disabled={props.readOnly}
       rating={props.value}
       onChanged={(value) => {
         if (props.onChange)

@@ -8,10 +8,12 @@ type propsOverride = {
   onChange: (value?: string) => void;
   value: string;
   className?: string;
+  readOnly?: boolean;
 };
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <FabricTextField
+    readOnly={props.readOnly}
     value={props.value}
     label={props.label}
     placeholder={props.placeholder}

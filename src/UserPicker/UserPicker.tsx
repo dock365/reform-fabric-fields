@@ -65,6 +65,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
     return (
       <NormalPeoplePicker
+        disabled={this.props.readOnly}
         onResolveSuggestions={this._onFilterChanged}
         onChange={this._onChange}
         pickerSuggestionsProps={suggestionProps}

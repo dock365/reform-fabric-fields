@@ -8,6 +8,7 @@ type propsOverride = {
   onBlur: (value?: string | number) => void;
   value: string | number;
   className: string;
+  readOnly?: boolean;
   customProps: {
     options: IChoiceGroupOption[];
   }
@@ -15,6 +16,7 @@ type propsOverride = {
 
 const ChoiceGroupField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <ChoiceGroup
+    disabled={props.readOnly}
     label={props.label}
     selectedKey={props.value}
     className={props.className}

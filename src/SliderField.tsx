@@ -7,6 +7,7 @@ type propsOverride = {
   onChange: (value?: string | number) => void;
   value: number;
   className: string;
+  readOnly?: boolean;
   customProps: {
     min: number;
     max: number;
@@ -17,6 +18,7 @@ type propsOverride = {
 
 const SliderField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Slider
+    disabled={props.readOnly}
     label={props.label}
     onChange={(value: any) => props.onChange && props.onChange(value)}
     min={props.customProps.min}

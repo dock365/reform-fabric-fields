@@ -6,11 +6,13 @@ import ErrorHandlerHOC from "./ErrorHandlerHOC";
 type propsOverride = {
   value: boolean;
   className: string;
+  readOnly?: boolean;
 };
 
 const CheckboxField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Checkbox
     label={props.label}
+    disabled={props.readOnly}
     checked={props.value}
     onChange={(e, checked) => {
       if (props.onChange)
