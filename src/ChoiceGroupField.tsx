@@ -7,7 +7,7 @@ type propsOverride = {
   onChange: (value?: string | number) => void;
   onBlur: (value?: string | number) => void;
   value: string | number;
-  className: string;
+  className?: string;
   readOnly?: boolean;
   customProps: {
     options: IChoiceGroupOption[];

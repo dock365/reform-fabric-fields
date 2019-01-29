@@ -10,7 +10,7 @@ type propsOverride = {
     max: number;
     size: RatingSize;
   }
-  className: string;
+  className?: string;
   readOnly?: boolean;
 };
 

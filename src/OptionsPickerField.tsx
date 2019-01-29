@@ -7,7 +7,7 @@ type propsOverride = {
   onChange: (value?: number) => void;
   onBlur: (value?: number) => void;
   value: number;
-  className: string;
+  className?: string;
   readOnly?: boolean;
 };
 

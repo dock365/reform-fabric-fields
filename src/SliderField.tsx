@@ -6,7 +6,7 @@ import ErrorHandlerHOC from './ErrorHandlerHOC';
 type propsOverride = {
   onChange: (value?: string | number) => void;
   value: number;
-  className: string;
+  className?: string;
   readOnly?: boolean;
   customProps: {
     min: number;

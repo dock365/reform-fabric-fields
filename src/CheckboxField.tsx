@@ -5,7 +5,7 @@ import ErrorHandlerHOC from "./ErrorHandlerHOC";
 
 type propsOverride = {
   value: boolean;
-  className: string;
+  className?: string;
   readOnly?: boolean;
 };
 

@@ -6,7 +6,7 @@ import { validationTypes } from '@dock365/validator';
 
 type propsOverride = IFieldRenderProps & {
   value: string;
-  className: string;
+  className?: string;
   readOnly?: boolean;
   customProps: {
     decsription: string;
