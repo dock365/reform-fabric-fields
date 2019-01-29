@@ -12,7 +12,7 @@ type propsOverride = {
 };
 
 const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
-  <div className={props.className}>
+  <div>
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <UserPicker
       values={Array.isArray(props.value) ? props.value : props.value !== undefined ? [props.value] : undefined}

@@ -12,7 +12,6 @@ type propsOverride = {
 const ToggleField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Toggle
     label={props.label}
-    className={props.className}
     checked={props.value || false}
     onChanged={(checked) => props.onChange && props.onChange(checked || false)}
     onText={props.customProps && props.customProps.onText}

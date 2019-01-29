@@ -14,7 +14,7 @@ type propsOverride = {
 };
 
 const RatingField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
-  <div className={props.className}>
+  <div>
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <Rating
       rating={props.value}

@@ -12,7 +12,6 @@ type propsOverride = {
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <FabricTextField
-    className={props.className}
     value={props.value}
     label={props.label}
     placeholder={props.placeholder}

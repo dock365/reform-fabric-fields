@@ -17,7 +17,6 @@ type propsOverride = {
 
 const SliderField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
   <Slider
-    className={props.className}
     label={props.label}
     onChange={(value: any) => props.onChange && props.onChange(value)}
     min={props.customProps.min}

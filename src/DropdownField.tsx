@@ -15,7 +15,6 @@ const DropdownField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     selectedKey={props.value}
     placeHolder={props.placeholder}
-    className={props.className}
     options={props.customProps && props.customProps.options || []}
     onChanged={(option?: IDropdownOption, index?: number) => {
       if (props.onChange)
