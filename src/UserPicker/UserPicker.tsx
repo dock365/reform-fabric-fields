@@ -118,6 +118,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   private _onChange(personas?: IPersonaSharedProps[]) {
     // const prevUser = this.state.selectedUser.length > 0 ? { ...this.state.selectedUser[0] } : {};
+    if (this.props.readOnly) return;
     if (personas && personas.length > 0) {
       const users = personas.map(persona => this._transformFromPersona(persona));
       // this._setSelectedUser(users);
