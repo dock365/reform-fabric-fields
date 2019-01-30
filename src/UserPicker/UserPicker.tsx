@@ -43,10 +43,11 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   public componentDidUpdate(prevProps: IUserPickerProps, prevState: IUserPickerState) {
     if (
-      prevProps.values === undefined &&
-      this.props.values &&
-      this.props.values.length > 0 &&
-      this.state.selectedUser.length === 0
+      // prevProps.values === undefined &&
+      // this.props.values &&
+      // this.props.values.length > 0 &&
+      // this.state.selectedUser.length === 0
+      this.props.values !== prevProps.values
     ) {
       this._setSelectedUser(this.props.values);
     }
