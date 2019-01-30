@@ -10,6 +10,7 @@ type propsOverride = {
   value?: number | number[];
   className?: string;
   readOnly?: boolean;
+  defaultValueIsUpdatable?: boolean;
 };
 
 const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
@@ -17,6 +18,8 @@ const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <UserPicker
       readOnly={props.readOnly}
+      defaultValue={props.defaultValue}
+      defaultValueIsUpdatable={props.defaultValueIsUpdatable}
       values={Array.isArray(props.value) ? props.value : props.value !== undefined ? [props.value] : undefined}
       onSelect={(users?: IUser[] | null) => {
         let ids: number | number[] = users && users.length > 0 && users.map(user => user.Id) || [];

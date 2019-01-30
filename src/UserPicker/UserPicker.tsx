@@ -43,13 +43,15 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   public componentDidUpdate(prevProps: IUserPickerProps, prevState: IUserPickerState) {
     if (
-      // prevProps.values === undefined &&
-      // this.props.values &&
-      // this.props.values.length > 0 &&
-      // this.state.selectedUser.length === 0
-      this.props.values !== prevProps.values
+      prevProps.values === undefined &&
+      this.props.values &&
+      this.props.values.length > 0 &&
+      this.state.selectedUser.length === 0
     ) {
       this._setSelectedUser(this.props.values);
+    }
+    if (this.props.defaultValueIsUpdatable && this.props.defaultValue !== prevProps.defaultValue) {
+      this._setSelectedUser(this.props.values, true);
     }
   }
 
@@ -77,37 +79,44 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
     );
   }
 
-  private _setSelectedUser(userIds?: number[] | IUser[]) {
-    if (userIds && userIds.length >= 0) {
-      // if (userIds) {
-      for (const userId of userIds) {
-        let selectedUser: IUser | null = null;
-        if (this.props.users && this.props.users.length > 0) {
-          for (const user of this.props.users) {
-            if (user.Id === userId) {
-              selectedUser = user;
-              this.setState(prevState => ({
-                selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
-              }));
-              break;
+  private _setSelectedUser(userIds?: number[] | IUser[], set?: boolean) {
+    this.setState(
+      prevState => ({
+        selectedUser: set ? [] : prevState.selectedUser,
+      }),
+      () => {
+        if (userIds && userIds.length >= 0) {
+          // if (userIds) {
+          for (const userId of userIds) {
+            let selectedUser: IUser | null = null;
+            if (this.props.users && this.props.users.length > 0) {
+              for (const user of this.props.users) {
+                if (user.Id === userId) {
+                  selectedUser = user;
+                  this.setState(prevState => ({
+                    selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
+                  }));
+                  break;
+                }
+              }
+            }
+            if (!selectedUser && this.props.getUserById) {
+              this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
+                .then((user: IUser) => {
+                  this.setState((prevState: IUserPickerState) => ({
+                    selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
+                  }));
+                })
+                .catch((err: any) => {
+                  // this.setState({ selectedUser: [] });
+                });
             }
           }
+        } else {
+          // this.setState({ selectedUser: [] });
         }
-        if (!selectedUser && this.props.getUserById) {
-          this.props.getUserById(typeof userId === "object" ? userId.Id : userId)
-            .then((user: IUser) => {
-              this.setState((prevState: IUserPickerState) => ({
-                selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
-              }));
-            })
-            .catch((err: any) => {
-              // this.setState({ selectedUser: [] });
-            });
-        }
-      }
-    } else {
-      // this.setState({ selectedUser: [] });
-    }
+      },
+    );
   }
 
   private _onSelected(persona?: IPersonaSharedProps): any {
