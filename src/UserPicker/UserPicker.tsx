@@ -51,7 +51,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
       this._setSelectedUser(this.props.values);
     }
     if (this.props.defaultValueIsUpdatable && this.props.defaultValue !== prevProps.defaultValue) {
-      this._setSelectedUser(this.props.values, true);
+      this._setSelectedUser(this.props.defaultValue, true);
     }
   }
 
@@ -189,7 +189,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   private _transformToPersona(user: IUser): IPersonaSharedProps & { Id: number } & any {
     return {
-      primaryText: user.Title,
+      text: user.Title,
       Id: user.Id,
       ...user,
     };
