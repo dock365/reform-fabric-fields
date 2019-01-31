@@ -9,6 +9,7 @@ type propsOverride = {
   value: string;
   className?: string;
   readOnly?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 };
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
@@ -16,6 +17,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     readOnly={props.readOnly}
     value={props.value}
     label={props.label}
+    onClick={props.onClick}
     placeholder={props.placeholder}
     onChanged={(value) => props.onChange && props.onChange(
       props.validationRules &&
