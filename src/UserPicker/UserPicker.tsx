@@ -136,7 +136,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
       this.props.onSelect(users);
     } else {
       // this._setSelectedUser();
-      this.props.onSelect(null);
+      this.props.onSelect([]);
     }
     this.setState({
       selectedUser: personas || [],
