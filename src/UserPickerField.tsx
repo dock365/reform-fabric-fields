@@ -20,14 +20,17 @@ const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = (props) =>
       readOnly={props.readOnly}
       defaultValue={props.defaultValue}
       defaultValueIsUpdatable={props.defaultValueIsUpdatable}
-      values={Array.isArray(props.value) ? props.value : props.value !== undefined ? [props.value] : undefined}
+      values={
+        Array.isArray(props.value) ?
+          props.value :
+          props.value !== undefined ? [props.value] : undefined}
       onSelect={(users?: IUser[] | null) => {
         let ids: number | number[] = users && users.length > 0 && users.map(user => user.Id) || [];
         ids = props.customProps && props.customProps.itemLimit === 1 ? ids[0] : ids;
         if (props.onChange)
-          props.onChange(ids);
+          props.onChange(ids || null);
         if (props.onBlur)
-          props.onBlur(ids);
+          props.onBlur(ids || null);
       }}
       users={props.customProps && props.customProps.users}
       searchUsers={props.customProps && props.customProps.searchUsers}
