@@ -34,7 +34,7 @@
   "homepage": "https://github.com/dock365/reform-fabric-fields#readme",
   "devDependencies": {
     "@braces/tslint-config": "^0.3.1",
-    "@dock365/reform": "^0.7.0",
+    "@dock365/reform": "^0.11.0-1",
     "@types/prop-types": "^15.5.6",
     "@types/react": "15.6",
     "@types/react-dom": "^15.5.8",
