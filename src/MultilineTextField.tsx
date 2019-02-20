@@ -36,7 +36,7 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
 
     return (
       <FabricTextField
-        value={this.props.value}
+        value={this.props.value || ""}
         label={this.props.label}
         placeholder={this.props.placeholder}
         readOnly={this.props.readOnly}
