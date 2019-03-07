@@ -2,15 +2,11 @@
 import * as React from 'react';
 /* tslint:enable */
 import { Promise } from 'es6-promise';
-import { BaseComponent, assign } from 'office-ui-fabric-react/lib/Utilities';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
-import { IPersonaSharedProps, Persona, IPersona } from 'office-ui-fabric-react/lib/Persona';
+import { IPersonaSharedProps } from 'office-ui-fabric-react/lib/Persona';
 import {
   IBasePickerSuggestionsProps,
   NormalPeoplePicker,
-  ValidationState,
 } from 'office-ui-fabric-react/lib/Pickers';
 import { IUserPickerProps } from './IUserPickerProps';
 import { IUserPickerState } from './IUserPickerState';
@@ -25,7 +21,6 @@ export interface IUser {
 }
 
 export class UserPicker extends React.Component<IUserPickerProps, IUserPickerState> {
-  private updated = false;
   constructor() {
     super();
 
@@ -107,7 +102,7 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
                     selectedUser: [...prevState.selectedUser, this._transformToPersona(user)],
                   }));
                 })
-                .catch((err: any) => {
+                .catch(() => {
                   // this.setState({ selectedUser: [] });
                 });
             }
@@ -145,8 +140,6 @@ export class UserPicker extends React.Component<IUserPickerProps, IUserPickerSta
 
   private _onFilterChanged = (
     filterText: string,
-    currentPersonas?: IPersonaSharedProps[],
-    limitResults?: number,
   ): IPersonaSharedProps[] | Promise<IPersonaSharedProps[]> => {
     if (filterText) {
       //WARNING: Using ajax promise. didnt find any way to use redux.
