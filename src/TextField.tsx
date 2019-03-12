@@ -35,13 +35,14 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
           props.customProps.localeString &&
           localStringToNumber(value)) ||
         value;
-        debugger;
       props.onChange &&
         props.onChange(
           props.validationRules &&
             props.validationRules.type === validationTypes.Number &&
             !isNaN(Number(_value))
-            ? _value.length - _value.lastIndexOf(".") === 1
+            ? (_value.length - _value.lastIndexOf(".") === 1 ||
+            _value.length - _value.lastIndexOf("0") === 1
+            )
               ? _value
               : Number(_value)
             : _value
