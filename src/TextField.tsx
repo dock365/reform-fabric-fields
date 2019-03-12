@@ -29,21 +29,24 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
     label={props.label}
     onClick={props.onClick}
     placeholder={props.placeholder}
-    onChange={({currentTarget: {value}}) => props.onChange &&
-      props.onChange(
-        props.validationRules &&
-          props.validationRules.type === validationTypes.Number &&
-          !isNaN(Number(value))
-          ? value.length - value.lastIndexOf(".") === 1
-            ? value
-            : Number(
-                (props.customProps &&
-                  props.customProps.localeString &&
-                  localStringToNumber(value)) ||
-                  value
-              )
-          : value
-      )}
+    onChanged={value => {
+      const _value =
+        (props.customProps &&
+          props.customProps.localeString &&
+          localStringToNumber(value)) ||
+        value;
+        debugger;
+      props.onChange &&
+        props.onChange(
+          props.validationRules &&
+            props.validationRules.type === validationTypes.Number &&
+            !isNaN(Number(_value))
+            ? _value.length - _value.lastIndexOf(".") === 1
+              ? _value
+              : Number(_value)
+            : _value
+        );
+    }}
     // onChanged={value =>
     //   props.onChange &&
     //   props.onChange(
@@ -62,25 +65,24 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
     //   )
     // }
     onBlur={e => {
-      const value = e.currentTarget.value;
+      const value =
+        (props.customProps &&
+          props.customProps.localeString &&
+          localStringToNumber(e.currentTarget.value)) ||
+        e.currentTarget.value;
       if (props.onBlur)
         props.onBlur(
           props.validationRules &&
             props.validationRules.type === validationTypes.Number &&
             !isNaN(Number(value))
-            ? Number(
-                (props.customProps &&
-                  props.customProps.localeString &&
-                  localStringToNumber(value)) ||
-                  value
-              )
+            ? Number(value)
             : value
         );
     }}
   />
 );
 
-const localStringToNumber = (value: string): number => {
+const localStringToNumber = (value: string): string | null => {
   const parts = (1234.5).toLocaleString().match(/(\D+)/g);
 
   const unformatted =
@@ -91,7 +93,7 @@ const localStringToNumber = (value: string): number => {
       .split(parts[1])
       .join(".");
 
-  return Number(unformatted);
+  return unformatted;
 };
 
 export default ErrorHandlerHOC(TextField);
