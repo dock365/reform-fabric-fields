@@ -23,7 +23,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
     value={
       (props.customProps &&
         props.customProps.localeString &&
-        props.value.toLocaleString()) ||
+        (props.value || "").toLocaleString()) ||
       props.value
     }
     label={props.label}
