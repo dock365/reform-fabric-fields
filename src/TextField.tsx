@@ -14,6 +14,7 @@ type propsOverride = {
   ) => void;
   customProps?: {
     localeString?: boolean;
+    maxLength?: number;
   };
 };
 
@@ -29,6 +30,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
     label={props.label}
     onClick={props.onClick}
     placeholder={props.placeholder}
+    maxLength={props.customProps && props.customProps.maxLength}
     onChanged={value => {
       const _value =
         (props.customProps &&
