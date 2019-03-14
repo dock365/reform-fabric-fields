@@ -24,8 +24,8 @@ export class UserPicker extends React.Component<
   IUserPickerProps,
   IUserPickerState
 > {
-  constructor() {
-    super();
+  constructor(props: IUserPickerProps) {
+    super(props);
 
     this.state = {
       selectedUser: []
