@@ -53,7 +53,7 @@ export class UserPicker extends React.Component<
     }
 
     if (prevProps.values !== this.props.values) {
-      this._setSelectedUser(this.props.values);
+      this._setSelectedUser(this.props.values, true);
     }
 
     if (
