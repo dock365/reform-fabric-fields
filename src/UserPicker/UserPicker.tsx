@@ -38,7 +38,7 @@ export class UserPicker extends React.Component<
   }
   public componentDidMount() {
     if (this.props.values) {
-      this._setSelectedUser(this.props.values);
+      this._setSelectedUser(this.props.values, true);
     }
   }
 
