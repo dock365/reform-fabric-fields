@@ -3,7 +3,10 @@ import * as React from "react";
 /* tslint:enable */
 import { Promise } from "es6-promise";
 
-import { IPersonaSharedProps } from "office-ui-fabric-react/lib/Persona";
+import {
+  IPersonaSharedProps,
+  IPersonaProps
+} from "office-ui-fabric-react/lib/Persona";
 import {
   IBasePickerSuggestionsProps,
   NormalPeoplePicker
@@ -52,8 +55,19 @@ export class UserPicker extends React.Component<
       this._setSelectedUser(this.props.values);
     }
 
-    if (prevProps.values !== this.props.values) {
-      this._setSelectedUser(this.props.values, true);
+    const value = this.props.values || [];
+    if (
+      prevProps.values !== this.props.values &&
+      !(
+        prevProps.values &&
+        this.props.values &&
+        prevProps.values.length === this.props.values.length &&
+        this.state.selectedUser.every((user: IPersonaProps & { Id?: number }) =>
+          value.some(id => id === user["Id"])
+        )
+      )
+    ) {
+      this._setSelectedUser(value, true);
     }
 
     if (
