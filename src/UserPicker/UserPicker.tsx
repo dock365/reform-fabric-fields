@@ -30,7 +30,7 @@ export class UserPicker extends React.Component<
     this.state = {
       selectedUser: []
     };
-    this._onSelected = this._onSelected.bind(this);
+    // this._onSelected = this._onSelected.bind(this);
     this._onChange = this._onChange.bind(this);
   }
   public componentDidMount() {
@@ -51,6 +51,11 @@ export class UserPicker extends React.Component<
     ) {
       this._setSelectedUser(this.props.values);
     }
+
+    if (prevProps.values !== this.props.values) {
+      this._setSelectedUser(this.props.values);
+    }
+
     if (
       this.props.defaultValueIsUpdatable &&
       this.props.defaultValue !== prevProps.defaultValue
@@ -130,12 +135,12 @@ export class UserPicker extends React.Component<
     );
   }
 
-  private _onSelected(persona?: IPersonaSharedProps): any {
-    // this.props.onSelect(person, this.props.field, this.props.taskId);
-    this._setSelectedUser([this._transformFromPersona(persona)]);
+  // private _onSelected(persona?: IPersonaSharedProps): any {
+  //   // this.props.onSelect(person, this.props.field, this.props.taskId);
+  //   this._setSelectedUser([this._transformFromPersona(persona)]);
 
-    return persona;
-  }
+  //   return persona;
+  // }
 
   private _onChange(personas?: IPersonaSharedProps[]) {
     // const prevUser = this.state.selectedUser.length > 0 ? { ...this.state.selectedUser[0] } : {};
