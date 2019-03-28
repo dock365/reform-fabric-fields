@@ -84,7 +84,7 @@ export class UserPicker extends React.Component<
       mostRecentlyUsedHeaderText: "Suggested Contacts",
       noResultsFoundText: "No results found",
       loadingText: "Loading",
-      showRemoveButtons: true,
+      showRemoveButtons: false,
       suggestionsAvailableAlertText: "People Picker Suggestions available",
       suggestionsContainerAriaLabel: "Suggested contacts"
     };
@@ -117,10 +117,14 @@ export class UserPicker extends React.Component<
                 if (user.Id === userId) {
                   selectedUser = user;
                   this.setState(prevState => ({
-                    selectedUser: [
-                      ...prevState.selectedUser,
-                      this._transformToPersona(user)
-                    ]
+                    selectedUser: prevState.selectedUser.some(
+                      _user => Number(_user.id) === user.Id
+                    )
+                      ? prevState.selectedUser
+                      : [
+                          ...prevState.selectedUser,
+                          this._transformToPersona(user)
+                        ]
                   }));
                   break;
                 }
@@ -131,10 +135,14 @@ export class UserPicker extends React.Component<
                 .getUserById(typeof userId === "object" ? userId.Id : userId)
                 .then((user: IUser) => {
                   this.setState((prevState: IUserPickerState) => ({
-                    selectedUser: [
-                      ...prevState.selectedUser,
-                      this._transformToPersona(user)
-                    ]
+                    selectedUser: prevState.selectedUser.some(
+                      _user => Number(_user.id) === user.Id
+                    )
+                      ? prevState.selectedUser
+                      : [
+                          ...prevState.selectedUser,
+                          this._transformToPersona(user)
+                        ]
                   }));
                 })
                 .catch(() => {
