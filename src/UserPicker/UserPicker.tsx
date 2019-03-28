@@ -46,17 +46,14 @@ export class UserPicker extends React.Component<
     prevProps: IUserPickerProps,
     prevState: IUserPickerState
   ) {
+    const value = this.props.values || [];
+
     if (
-      prevProps.values === undefined &&
+      (prevProps.values === undefined &&
       this.props.values &&
       this.props.values.length > 0 &&
-      this.state.selectedUser.length === 0
-    ) {
-      this._setSelectedUser(this.props.values, true);
-    }
+      this.state.selectedUser.length === 0) ||
 
-    const value = this.props.values || [];
-    if (
       prevProps.values !== this.props.values &&
       !(
         prevProps.values &&
@@ -67,7 +64,7 @@ export class UserPicker extends React.Component<
         )
       )
     ) {
-      this._setSelectedUser(value, true);
+      this._setSelectedUser(this.props.values, true);
     }
 
     if (
