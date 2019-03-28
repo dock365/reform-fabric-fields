@@ -52,7 +52,7 @@ export class UserPicker extends React.Component<
       this.props.values.length > 0 &&
       this.state.selectedUser.length === 0
     ) {
-      this._setSelectedUser(this.props.values);
+      this._setSelectedUser(this.props.values, true);
     }
 
     const value = this.props.values || [];
