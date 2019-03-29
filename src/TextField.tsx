@@ -10,7 +10,7 @@ type propsOverride = {
   className?: string;
   readOnly?: boolean;
   onClick?: (
-    event: React.MouseEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.MouseEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   customProps?: {
     localeString?: boolean;
@@ -38,16 +38,17 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
           props.customProps.localeString &&
           localStringToNumber(value)) ||
         value;
+      // tslint:disable-next-line:no-unused-expression
       props.onChange &&
         props.onChange(
           props.validationRules &&
             props.validationRules.type === validationTypes.Number &&
             !isNaN(Number(_value))
             ? _value.length - _value.lastIndexOf(".") === 1 ||
-              _value.length - _value.lastIndexOf("0") === 1
+              (_value.length - _value.lastIndexOf("0") === 1 && _value.lastIndexOf(".") > 0)
               ? _value
               : Number(_value)
-            : _value
+            : _value,
         );
     }}
     // onChanged={value =>
@@ -79,14 +80,15 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
             props.validationRules.type === validationTypes.Number &&
             !isNaN(Number(value))
             ? Number(value)
-            : value
+            : value,
         );
     }}
   />
 );
 
 const localStringToNumber = (value: string): string | null => {
-  const parts = (1234.5).toLocaleString().match(/(\D+)/g);
+  const parts = (1234.5).toLocaleString()
+    .match(/(\D+)/g);
 
   const unformatted =
     parts &&
