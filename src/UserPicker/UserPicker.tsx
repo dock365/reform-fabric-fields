@@ -1,7 +1,6 @@
 /* tslint:disable */
 import * as React from "react";
 /* tslint:enable */
-import { Promise } from "es6-promise";
 
 import {
   IPersonaSharedProps,
@@ -13,6 +12,7 @@ import {
 } from "office-ui-fabric-react/lib/Pickers";
 import { IUserPickerProps } from "./IUserPickerProps";
 import { IUserPickerState } from "./IUserPickerState";
+import { number } from "prop-types";
 // import { IUser, spSearchUsers, getUserById } from '../../../spAPIs/users';
 
 export interface IUser {
@@ -31,15 +31,10 @@ export class UserPicker extends React.Component<
     super(props);
 
     this.state = {
-      selectedUser: []
+      selectedUsers: []
     };
     // this._onSelected = this._onSelected.bind(this);
     this._onChange = this._onChange.bind(this);
-  }
-  public componentDidMount() {
-    // if (this.props.values) {
-    //   this._setSelectedUser(this.props.values, true);
-    // }
   }
 
   public componentDidUpdate(
@@ -50,19 +45,19 @@ export class UserPicker extends React.Component<
 
     if (
       (prevProps.values === undefined &&
-      this.props.values &&
-      this.props.values.length > 0 &&
-      this.state.selectedUser.length === 0) ||
-
-      prevProps.values !== this.props.values &&
-      !(
-        prevProps.values &&
         this.props.values &&
-        prevProps.values.length === this.props.values.length &&
-        this.state.selectedUser.every((user: IPersonaProps & { Id?: number }) =>
-          value.some(id => id === user["Id"])
-        )
-      )
+        this.props.values.length > 0 &&
+        this.state.selectedUsers.length === 0) ||
+      (prevProps.values !== this.props.values &&
+        !(
+          prevProps.values &&
+          this.props.values &&
+          prevProps.values.length === this.props.values.length &&
+          this.state.selectedUsers.every(
+            (user: IPersonaProps & { Id?: number }) =>
+              value.some(id => id === user["Id"])
+          )
+        ))
     ) {
       this._setSelectedUser(this.props.values, true);
     }
@@ -92,66 +87,84 @@ export class UserPicker extends React.Component<
         onResolveSuggestions={this._onFilterChanged}
         onChange={this._onChange}
         pickerSuggestionsProps={suggestionProps}
-        selectedItems={this.state.selectedUser}
+        selectedItems={this.state.selectedUsers}
         itemLimit={this.props.itemLimit}
         resolveDelay={500}
       />
     );
   }
 
-  private _setSelectedUser(userIds?: number[] | IUser[], set?: boolean) {
-    this.setState(
-      prevState => ({
-        selectedUser: set ? [] : prevState.selectedUser
-      }),
-      () => {
-        if (userIds && userIds.length >= 0) {
-          // if (userIds) {
-          for (const userId of userIds) {
-            let selectedUser: IUser | null = null;
-            if (this.props.users && this.props.users.length > 0) {
-              for (const user of this.props.users) {
-                if (user.Id === userId) {
-                  selectedUser = user;
-                  this.setState(prevState => ({
-                    selectedUser: prevState.selectedUser.some(
-                      _user => Number(_user.id) === user.Id
-                    )
-                      ? prevState.selectedUser
-                      : [
-                          ...prevState.selectedUser,
-                          this._transformToPersona(user)
-                        ]
-                  }));
-                  break;
-                }
-              }
-            }
-            if (!selectedUser && this.props.getUserById && userId) {
-              this.props
-                .getUserById(typeof userId === "object" ? userId.Id : userId)
-                .then((user: IUser) => {
-                  this.setState((prevState: IUserPickerState) => ({
-                    selectedUser: prevState.selectedUser.some(
-                      _user => Number(_user.id) === user.Id
-                    )
-                      ? prevState.selectedUser
-                      : [
-                          ...prevState.selectedUser,
-                          this._transformToPersona(user)
-                        ]
-                  }));
-                })
-                .catch(() => {
-                  // this.setState({ selectedUser: [] });
-                });
-            }
-          }
-        } else {
-          // this.setState({ selectedUser: [] });
+  private async _setSelectedUser(userIds?: number[], set?: boolean) {
+    if (userIds) {
+      if (this.props.users && this.props.users.length > 0) {
+        const selectedUsers = [];
+        for (const id of userIds) {
+          const user =
+            this.props.users && this.props.users.find(user => user.Id === id);
+          if (user) selectedUsers.push(this._transformToPersona(user));
         }
+
+        this.setState({ selectedUsers });
+      } else if (this.props.getUserById) {
+        const selectedUsers = [];
+
+        for (const id of userIds) {
+          const user = await this.props.getUserById(id);
+          if (user) selectedUsers.push(this._transformToPersona(user));
+        }
+        this.setState({ selectedUsers });
       }
-    );
+    } else {
+      this.setState({ selectedUsers: [] });
+    }
+
+    // this.setState(
+    // prevState => ({
+    //   selectedUser: set ? [] : prevState.selectedUser,
+    // }),
+    // () => {
+    // if (userIds && userIds.length >= 0) {
+    //   // if (userIds) {
+    //   for (const userId of userIds) {
+    //     let selectedUser: IUser | null = null;
+    //     if (this.props.users && this.props.users.length > 0) {
+    //       for (const user of this.props.users) {
+    //         if (user.Id === userId) {
+    //           selectedUser = user;
+    //           this.setState(prevState => ({
+    //             selectedUsers: prevState.selectedUsers.some(
+    //               _user => Number(_user.id) === user.Id
+    //             )
+    //               ? prevState.selectedUsers
+    //               : [...prevState.selectedUsers, this._transformToPersona(user)]
+    //           }));
+    //           break;
+    //         }
+    //       }
+    //     }
+
+    //     if (!selectedUser && this.props.getUserById && userId) {
+    //       this.props
+    //         .getUserById(typeof userId === "object" ? userId.Id : userId)
+    //         .then((user: IUser) => {
+    //           this.setState((prevState: IUserPickerState) => ({
+    //             selectedUsers: prevState.selectedUsers.some(
+    //               _user => Number(_user.id) === user.Id
+    //             )
+    //               ? prevState.selectedUsers
+    //               : [...prevState.selectedUsers, this._transformToPersona(user)]
+    //           }));
+    //         })
+    //         .catch(() => {
+    //           // this.setState({ selectedUser: [] });
+    //         });
+    //     }
+    //   }
+    // } else {
+    //   // this.setState({ selectedUser: [] });
+    // }
+    //   }
+    // );
   }
 
   // private _onSelected(persona?: IPersonaSharedProps): any {
@@ -176,7 +189,7 @@ export class UserPicker extends React.Component<
       this.props.onSelect([]);
     }
     this.setState({
-      selectedUser: personas || []
+      selectedUsers: personas || []
     });
   }
 
@@ -193,7 +206,7 @@ export class UserPicker extends React.Component<
                 user =>
                   user.Title.toLowerCase().indexOf(filterText.toLowerCase()) >=
                     0 &&
-                  this.state.selectedUser.every(
+                  this.state.selectedUsers.every(
                     (persona?: IPersonaSharedProps & { Id: number } & any) =>
                       persona.Id !== user.Id
                   )
@@ -207,7 +220,7 @@ export class UserPicker extends React.Component<
               resolve(
                 users
                   .filter(user =>
-                    this.state.selectedUser.every(
+                    this.state.selectedUsers.every(
                       (persona?: IPersonaSharedProps & { Id: number } & any) =>
                         persona.Id !== user.Id
                     )
