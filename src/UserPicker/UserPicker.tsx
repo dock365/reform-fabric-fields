@@ -68,19 +68,17 @@ export class UserPicker extends React.Component<
         values.some(id => id === user["Id"])
       );
 
-    if (
-      !usersNotChanged
-    ) {
+    if (!usersNotChanged) {
       this._setSelectedUser(values, true);
     }
 
-    if (this.props.values)
-      if (
-        this.props.defaultValueIsUpdatable &&
-        this.props.defaultValue !== prevProps.defaultValue
-      ) {
-        this._setSelectedUser(this.props.defaultValue, true);
-      }
+    // if (this.props.values)
+    //   if (
+    //     this.props.defaultValueIsUpdatable &&
+    //     this.props.defaultValue !== prevProps.defaultValue
+    //   ) {
+    //     this._setSelectedUser(this.props.defaultValue, true);
+    //   }
   }
 
   public render(): JSX.Element {
@@ -110,20 +108,22 @@ export class UserPicker extends React.Component<
   private async _setSelectedUser(userIds?: number[], set?: boolean) {
     if (userIds) {
       if (this.props.users && this.props.users.length > 0) {
-        const selectedUsers = [];
+        const selectedUsers: any[] = [];
         for (const id of userIds) {
           const user =
             this.props.users && this.props.users.find(user => user.Id === id);
-          if (user) selectedUsers.push(this._transformToPersona(user));
+          if (user && selectedUsers.every(_user => _user.Id !== user.Id))
+            selectedUsers.push(this._transformToPersona(user));
         }
 
         this.setState({ selectedUsers });
       } else if (this.props.getUserById) {
-        const selectedUsers = [];
+        const selectedUsers: any[] = [];
 
         for (const id of userIds) {
           const user = await this.props.getUserById(id);
-          if (user) selectedUsers.push(this._transformToPersona(user));
+          if (user && selectedUsers.every(_user => _user.Id !== user.Id))
+            selectedUsers.push(this._transformToPersona(user));
         }
         this.setState({ selectedUsers });
       }
