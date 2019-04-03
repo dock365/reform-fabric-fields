@@ -1,6 +1,6 @@
 {
   "name": "@dock365/reform-fabric-fields",
-  "version": "0.12.1-15",
+  "version": "0.12.1-16",
   "description": "fabric fields reform",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
