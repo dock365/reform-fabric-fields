@@ -37,6 +37,12 @@ export class UserPicker extends React.Component<
     this._onChange = this._onChange.bind(this);
   }
 
+  public componentDidMount() {
+    if (this.props.values) {
+      this._setSelectedUser(this.props.values);
+    }
+  }
+
   public componentDidUpdate(
     prevProps: IUserPickerProps,
     prevState: IUserPickerState
@@ -69,7 +75,7 @@ export class UserPicker extends React.Component<
       );
 
     if (!usersNotChanged) {
-      this._setSelectedUser(values, true);
+      this._setSelectedUser(values);
     }
 
     // if (this.props.values)
@@ -105,7 +111,7 @@ export class UserPicker extends React.Component<
     );
   }
 
-  private async _setSelectedUser(userIds?: number[], set?: boolean) {
+  private async _setSelectedUser(userIds?: number[]) {
     if (userIds) {
       if (this.props.users && this.props.users.length > 0) {
         const selectedUsers: any[] = [];
