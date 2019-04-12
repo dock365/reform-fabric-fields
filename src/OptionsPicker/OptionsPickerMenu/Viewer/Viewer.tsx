@@ -27,6 +27,7 @@ export default class StatusViewer extends React.Component<IStatusViewerProps, {}
             <button
               onClick={this.props.onSelect}
               value={option.id}
+              type="button"
               style={{
                 backgroundColor: option.color && this.props.colors[option.color] || option.color,
                 height: "30px",
@@ -47,6 +48,7 @@ export default class StatusViewer extends React.Component<IStatusViewerProps, {}
             <DefaultButton
               text="Add / Edit Labels"
               onClick={this.props.toggleEdit}
+              type="button"
               style={{
                 display: "block",
                 width: "100%",

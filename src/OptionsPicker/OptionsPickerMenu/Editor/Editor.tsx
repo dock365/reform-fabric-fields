@@ -124,6 +124,7 @@ export default class Editor extends React.Component<
               {
                 !status.protected ?
                   <ActionButton
+                    type="button"
                     disabled={status.protected}
                     iconProps={{ iconName: "ChromeClose" }}
                     className={`${styles.deleteOptionBtn}`}
@@ -141,14 +142,15 @@ export default class Editor extends React.Component<
           {this.state.availableColors.map(color =>
             <button
               key={color}
+              type="button"
               value={color}
               style={{ backgroundColor: this.props.colors[color], ...styles.colorBtn }}
               onClick={this._onColorSelect}
             />,
           )}
         </div>
-        <DefaultButton text="Cancel" onClick={this._cancelChanges} style={styles.cancelChangesBtn} />
-        <DefaultButton text="Apply" onClick={this._saveChanges} style={styles.applyChangesBtn} />
+        <DefaultButton text="Cancel" onClick={this._cancelChanges} style={styles.cancelChangesBtn} type="button" />
+        <DefaultButton text="Apply" onClick={this._saveChanges} style={styles.applyChangesBtn} type="button" />
       </div>
     );
   }
