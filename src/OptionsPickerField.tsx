@@ -28,7 +28,8 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
       editable={props.customProps && props.customProps.editable}
       colors={props.customProps && props.customProps.colors || {}}
       options={props.customProps && props.customProps.options}
-    />
+    >{props.children}
+    </OptionsPicker>
   </div>
 );
 
