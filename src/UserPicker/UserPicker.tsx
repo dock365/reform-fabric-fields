@@ -4,11 +4,11 @@ import * as React from "react";
 
 import {
   IPersonaSharedProps,
-  IPersonaProps
+  IPersonaProps,
 } from "office-ui-fabric-react/lib/Persona";
 import {
   IBasePickerSuggestionsProps,
-  NormalPeoplePicker
+  NormalPeoplePicker,
 } from "office-ui-fabric-react/lib/Pickers";
 import { IUserPickerProps } from "./IUserPickerProps";
 import { IUserPickerState } from "./IUserPickerState";
@@ -26,12 +26,12 @@ export interface IUser {
 export class UserPicker extends React.Component<
   IUserPickerProps,
   IUserPickerState
-> {
+  > {
   constructor(props: IUserPickerProps) {
     super(props);
 
     this.state = {
-      selectedUsers: []
+      selectedUsers: [],
     };
     // this._onSelected = this._onSelected.bind(this);
     this._onChange = this._onChange.bind(this);
@@ -45,7 +45,7 @@ export class UserPicker extends React.Component<
 
   public componentDidUpdate(
     prevProps: IUserPickerProps,
-    prevState: IUserPickerState
+    prevState: IUserPickerState,
   ) {
     // if (
     //   (prevProps.values === undefined &&
@@ -71,7 +71,7 @@ export class UserPicker extends React.Component<
     const usersNotChanged =
       prevValues.length === values.length &&
       this.state.selectedUsers.every((user: IPersonaProps & { Id?: number }) =>
-        values.some(id => id === user["Id"])
+        values.some(id => id === user["Id"]),
       );
 
     if (!usersNotChanged) {
@@ -89,13 +89,13 @@ export class UserPicker extends React.Component<
 
   public render(): JSX.Element {
     const suggestionProps: IBasePickerSuggestionsProps = {
-      suggestionsHeaderText: "Suggested People",
+      suggestionsHeaderText: this.props.suggestionsHeaderText || "Suggested People",
       mostRecentlyUsedHeaderText: "Suggested Contacts",
       noResultsFoundText: "No results found",
       loadingText: "Loading",
       showRemoveButtons: false,
       suggestionsAvailableAlertText: "People Picker Suggestions available",
-      suggestionsContainerAriaLabel: "Suggested contacts"
+      suggestionsContainerAriaLabel: "Suggested contacts",
     };
 
     return (
@@ -150,7 +150,7 @@ export class UserPicker extends React.Component<
     if (this.props.readOnly) return;
     if (personas && personas.length > 0) {
       const users = personas.map(persona =>
-        this._transformFromPersona(persona)
+        this._transformFromPersona(persona),
       );
       // this._setSelectedUser(users);
 
@@ -160,12 +160,12 @@ export class UserPicker extends React.Component<
       this.props.onSelect([]);
     }
     this.setState({
-      selectedUsers: personas || []
+      selectedUsers: personas || [],
     });
   }
 
   private _onFilterChanged = (
-    filterText: string
+    filterText: string,
   ): IPersonaSharedProps[] | Promise<IPersonaSharedProps[]> => {
     if (filterText) {
       //WARNING: Using ajax promise. didnt find any way to use redux.
@@ -175,14 +175,15 @@ export class UserPicker extends React.Component<
             this.props.users
               .filter(
                 user =>
-                  user.Title.toLowerCase().indexOf(filterText.toLowerCase()) >=
-                    0 &&
+                  user.Title.toLowerCase()
+                    .indexOf(filterText.toLowerCase()) >=
+                  0 &&
                   this.state.selectedUsers.every(
                     (persona?: IPersonaSharedProps & { Id: number } & any) =>
-                      persona.Id !== user.Id
-                  )
+                      persona.Id !== user.Id,
+                  ),
               )
-              .map(user => this._transformToPersona(user))
+              .map(user => this._transformToPersona(user)),
           );
         } else if (this.props.searchUsers) {
           this.props
@@ -193,10 +194,10 @@ export class UserPicker extends React.Component<
                   .filter(user =>
                     this.state.selectedUsers.every(
                       (persona?: IPersonaSharedProps & { Id: number } & any) =>
-                        persona.Id !== user.Id
-                    )
+                        persona.Id !== user.Id,
+                    ),
                   )
-                  .map(user => this._transformToPersona(user))
+                  .map(user => this._transformToPersona(user)),
               );
             })
             .catch((err: any) => {
@@ -207,27 +208,27 @@ export class UserPicker extends React.Component<
     } else {
       return [];
     }
-  };
+  }
 
   private _transformToPersona(
-    user: IUser
+    user: IUser,
   ): IPersonaSharedProps & { Id: number } & any {
     return {
       text: user.Title,
       Id: user.Id,
-      ...user
+      ...user,
     };
   }
 
   private _transformFromPersona(
-    user: IPersonaSharedProps & { Id: number } & any
+    user: IPersonaSharedProps & { Id: number } & any,
   ): IUser {
     return {
       Id: user.Id,
       Designation: user.Designation,
       Email: user.Email,
       LoginName: user.LoginName,
-      Title: user.Title
+      Title: user.Title,
     };
   }
 }

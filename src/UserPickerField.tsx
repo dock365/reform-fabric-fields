@@ -11,6 +11,13 @@ type propsOverride = {
   className?: string;
   readOnly?: boolean;
   defaultValueIsUpdatable?: boolean;
+  customProps?: {
+    suggestionsHeaderText?: string;
+    users?: any;
+    searchUsers?: any;
+    getUserById?: number;
+    itemLimit?: number;
+  }
 };
 
 const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = props => {
@@ -27,8 +34,8 @@ const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = props => {
           Array.isArray(props.value)
             ? props.value
             : props.value !== undefined
-            ? [props.value]
-            : undefined
+              ? [props.value]
+              : undefined
         }
         onSelect={(users?: IUser[] | null) => {
           let ids: number | number[] =
@@ -44,6 +51,7 @@ const UserPickerField: React.SFC<IFieldRenderProps & propsOverride> = props => {
         searchUsers={props.customProps && props.customProps.searchUsers}
         getUserById={props.customProps && props.customProps.getUserById}
         itemLimit={props.customProps && props.customProps.itemLimit}
+        suggestionsHeaderText={props.customProps && props.customProps.suggestionsHeaderText}
       />
     </div>
   );

@@ -11,4 +11,5 @@ export interface IUserPickerProps {
   itemLimit?: number;
   readOnly?: boolean;
   defaultValueIsUpdatable?: boolean;
+  suggestionsHeaderText?: string;
 }
