@@ -47,9 +47,8 @@ export class UserPicker extends React.Component<
     prevProps: IUserPickerProps,
     prevState: IUserPickerState,
   ) {
-    debugger;
     const values = this.props.values || [];
-    const prevValues = this.state.selectedUsers || prevProps.values || [];
+    const prevValues = prevProps.values || [];
     const usersNotChanged =
       prevValues.length === values.length &&
       this.state.selectedUsers.every((user: IPersonaProps & { Id?: number }) =>
@@ -106,6 +105,8 @@ export class UserPicker extends React.Component<
             selectedUsers.push(this._transformToPersona(user));
         }
         this.setState({ selectedUsers });
+      } else {
+        this.setState({ selectedUsers: [] });
       }
     } else {
       this.setState({ selectedUsers: [] });
