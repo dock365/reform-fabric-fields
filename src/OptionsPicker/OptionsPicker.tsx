@@ -34,6 +34,7 @@ export default class OptionsPicker extends React.Component<IOptionsPickerProps, 
           ref={this._menuButtonElement}
           onClick={this._onToggleCalloutClick}
           type="button"
+          disabled={this.props.readOnly}
           style={{
             padding: 0,
             margin: 0,
