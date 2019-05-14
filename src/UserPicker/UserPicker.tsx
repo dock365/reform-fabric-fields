@@ -47,27 +47,8 @@ export class UserPicker extends React.Component<
     prevProps: IUserPickerProps,
     prevState: IUserPickerState,
   ) {
-    // if (
-    //   (prevProps.values === undefined &&
-    //     this.props.values &&
-    //     this.props.values.length > 0 &&
-    //     this.state.selectedUsers.length === 0) ||
-    //   (prevProps.values !== this.props.values &&
-    //     !(
-    //       prevProps.values &&
-    //       this.props.values &&
-    //       prevProps.values.length === this.props.values.length &&
-    //       this.state.selectedUsers.every(
-    //         (user: IPersonaProps & { Id?: number }) =>
-    //           value.some(id => id === user["Id"])
-    //       )
-    //     ))
-    // ) {
-    //   this._setSelectedUser(this.props.values, true);
-    // }
     const values = this.props.values || [];
     const prevValues = prevProps.values || [];
-
     const usersNotChanged =
       prevValues.length === values.length &&
       this.state.selectedUsers.every((user: IPersonaProps & { Id?: number }) =>
@@ -77,14 +58,6 @@ export class UserPicker extends React.Component<
     if (!usersNotChanged) {
       this._setSelectedUser(values);
     }
-
-    // if (this.props.values)
-    //   if (
-    //     this.props.defaultValueIsUpdatable &&
-    //     this.props.defaultValue !== prevProps.defaultValue
-    //   ) {
-    //     this._setSelectedUser(this.props.defaultValue, true);
-    //   }
   }
 
   public render(): JSX.Element {
