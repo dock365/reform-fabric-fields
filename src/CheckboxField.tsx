@@ -14,6 +14,7 @@ const CheckboxField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
     label={props.label}
     disabled={props.readOnly}
     checked={props.value}
+    style={{ paddingTop: "10px" }}
     onChange={(e, checked) => {
       if (props.onChange)
         props.onChange(checked || false);
