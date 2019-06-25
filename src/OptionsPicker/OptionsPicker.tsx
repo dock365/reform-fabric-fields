@@ -48,7 +48,7 @@ export default class OptionsPicker extends React.Component<IOptionsPickerProps, 
             <div
               style={{
                 backgroundColor: activeOption && activeOption.id ?
-                  activeOption.color && this.props.colors[activeOption.color] :
+                  activeOption.color && (this.props.colors[activeOption.color] || activeOption.color) :
                   "#ccc",
                 height: "32px",
                 lineHeight: "31px",
