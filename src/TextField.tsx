@@ -21,6 +21,12 @@ type propsOverride = {
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
   <FabricTextField
     readOnly={props.readOnly}
+    label={props.label}
+    onClick={props.onClick}
+    placeholder={props.placeholder}
+    autoFocus={props.customProps && props.customProps.autoFocus}
+    // tslint:disable-next-line: no-unsafe-any
+    maxLength={props.customProps && props.customProps.maxLength}
     value={
       (props.customProps &&
         props.customProps.localeString &&
@@ -28,16 +34,12 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
       props.value ||
       ""
     }
-    label={props.label}
-    onClick={props.onClick}
-    placeholder={props.placeholder}
-    maxLength={props.customProps && props.customProps.maxLength}
-    onChanged={value => {
+    onChange={(ev, newValue: any) => {
       const _value =
         (props.customProps &&
           props.customProps.localeString &&
-          localStringToNumber(value)) ||
-        value;
+          localStringToNumber(newValue)) ||
+        newValue;
       // tslint:disable-next-line:no-unused-expression
       props.onChange &&
         props.onChange(
@@ -51,6 +53,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
             : _value,
         );
     }}
+
     // onChanged={value =>
     //   props.onChange &&
     //   props.onChange(

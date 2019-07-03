@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { IOptionsPickerProps } from './IOptionsPickerProps';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
-import { createRef } from '@uifabric/utilities/lib';
 import { IOptionsPickerState } from './IOptionsPickerState';
 import OptionsPickerMenu from './OptionsPickerMenu/OptionsPickerMenu';
 import { IOptionsPickerOption } from './OptionsPickerMenu/IOptionsPickerMenuProps';
 
 export default class OptionsPicker extends React.Component<IOptionsPickerProps, IOptionsPickerState> {
-  private _menuButtonElement = createRef<HTMLElement>();
+  private _menuButtonElement: React.RefObject<HTMLButtonElement>;
 
   constructor(props: IOptionsPickerProps) {
     super(props);
     this.state = {
       callout: false,
     };
+    this._menuButtonElement = React.createRef();
 
     this._onToggleCalloutClick = this._onToggleCalloutClick.bind(this);
   }
