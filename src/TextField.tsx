@@ -16,6 +16,7 @@ type propsOverride = {
     localeString?: boolean;
     maxLength?: number;
   };
+  ref?: any;
 };
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
@@ -28,6 +29,7 @@ const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
       props.value ||
       ""
     }
+    ref={props.ref}
     label={props.label}
     onClick={props.onClick}
     placeholder={props.placeholder}
