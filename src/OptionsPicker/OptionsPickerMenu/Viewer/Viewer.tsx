@@ -12,7 +12,7 @@ export default class StatusViewer extends React.Component<IStatusViewerProps, {}
     width = width < widthOfAStatus * 2 ? widthOfAStatus * 2 : width;
 
     return (
-      <div>
+      <div className="optionsPickerViewMenu">
         <div style={{
           width: `${width}px`,
           padding: "5px",
@@ -26,6 +26,7 @@ export default class StatusViewer extends React.Component<IStatusViewerProps, {}
           {options.map(option =>
             <button
               onClick={this.props.onSelect}
+              className="optionsPickerOptionButton"
               value={option.id}
               type="button"
               style={{

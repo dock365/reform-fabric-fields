@@ -12,7 +12,7 @@ type propsOverride = {
 };
 
 const TextField: React.SFC<IFieldRenderProps & propsOverride> = (props) => (
-  <div>
+  <div className="optionsPickerField">
     {props.label && <label htmlFor="" style={{ padding: "5px 0", display: "block" }}>{props.label}</label>}
     <OptionsPicker
       readOnly={props.readOnly}

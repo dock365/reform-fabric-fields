@@ -103,12 +103,16 @@ export default class Editor extends React.Component<
     width = width < widthOfAStatus * 2 ? widthOfAStatus * 2 : width;
 
     return (
-      <div style={{ width: `${width}px` }}>
+      <div
+      style={{ width: `${width}px` }}
+      className="optionsPickerEditMenu"
+      >
         <div className={`${styles.optionContainer}`}>
           {options.map(status =>
             <div
               style={styles.optionItem}
               key={status.color}
+              className="optionsPickerEditMenuItem"
             >
               <div
                 style={{
