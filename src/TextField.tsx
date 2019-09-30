@@ -19,88 +19,84 @@ type propsOverride = {
   componentRef?: any;
 };
 
-const TextField: React.SFC<IFieldRenderProps & propsOverride> = props => (
-  <FabricTextField
-    readOnly={props.readOnly}
-    value={
-      (props.customProps &&
-        props.customProps.localeString &&
-        (props.value || "").toLocaleString()) ||
-      props.value ||
-      ""
-    }
-    componentRef={props.componentRef}
-    label={props.label}
-    onClick={props.onClick}
-    placeholder={props.placeholder}
-    maxLength={props.customProps && props.customProps.maxLength}
-    onChanged={value => {
-      const _value =
-        (props.customProps &&
-          props.customProps.localeString &&
-          localStringToNumber(value)) ||
-        value;
-      // tslint:disable-next-line:no-unused-expression
-      props.onChange &&
-        props.onChange(
-          props.validationRules &&
-            props.validationRules.type === validationTypes.Number &&
-            !isNaN(Number(_value))
-            ? _value.length - _value.lastIndexOf(".") === 1 ||
-              (_value.length - _value.lastIndexOf("0") === 1 && _value.lastIndexOf(".") > 0)
-              ? _value
-              : Number(_value)
-            : _value,
-        );
-    }}
-    // onChanged={value =>
-    //   props.onChange &&
-    //   props.onChange(
-    //     props.validationRules &&
-    //       props.validationRules.type === validationTypes.Number &&
-    //       !isNaN(Number(value))
-    //       ? value.length - value.lastIndexOf(".") === 1
-    //         ? value
-    //         : Number(
-    //             (props.customProps &&
-    //               props.customProps.localeString &&
-    //               localStringToNumber(value)) ||
-    //               value
-    //           )
-    //       : value
-    //   )
-    // }
-    onBlur={e => {
-      const value =
-        (props.customProps &&
-          props.customProps.localeString &&
-          localStringToNumber(e.currentTarget.value)) ||
-        e.currentTarget.value;
-      if (props.onBlur)
-        props.onBlur(
-          props.validationRules &&
-            props.validationRules.type === validationTypes.Number &&
+class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
+
+  public render() {
+    return (
+      <FabricTextField
+        readOnly={this.props.readOnly}
+        value={
+          (this.props.customProps &&
+            this.props.customProps.localeString &&
+            (this.props.value || "").toLocaleString()) ||
+          this.props.value ||
+          ""
+        }
+        componentRef={this.props.componentRef}
+        label={this.props.label}
+        onClick={this.props.onClick}
+        placeholder={this.props.placeholder}
+        maxLength={this.props.customProps && this.props.customProps.maxLength}
+        onChange={this._onChange}
+        onBlur={this._onBlur}
+      />
+    )
+  }
+
+  private _onChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value: any =
+      (this.props.customProps &&
+        this.props.customProps.localeString &&
+        this._localStringToNumber(event.currentTarget.value)) ||
+        event.currentTarget.value;
+    // tslint:disable-next-line:no-unused-expression
+    if (this.props.onChange) {
+      const isNumber = this.props.validationRules && this.props.validationRules.type === validationTypes.Number && !isNaN(Number(value));
+      this.props.onChange(
+        isNumber
+          ?
+          // _value.length - _value.lastIndexOf(".") === 1 ||
+          //   (_value.length - _value.lastIndexOf("0") === 1 && _value.lastIndexOf(".") > 0) ||
+            (Number(value) == value && Number(value) !== value) &&
             !isNaN(Number(value))
-            ? Number(value)
+            ? value
+            : Number(value)
+          : value,
+      );
+    }
+  }
+
+  private _onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value: any =
+      (this.props.customProps &&
+        this.props.customProps.localeString &&
+        this._localStringToNumber(e.currentTarget.value)) ||
+      e.currentTarget.value;
+    if (this.props.onBlur) {
+      const isNumber = this.props.validationRules && this.props.validationRules.type === validationTypes.Number && !isNaN(Number(value));
+
+      // this.props.onBlur(value)
+        this.props.onBlur(
+          isNumber
+            ? (Number(value) == value) ? value :Number(value)
             : value,
         );
-    }}
-  />
-);
+    }
+  }
+  private _localStringToNumber = (value: string): string | null => {
+    const parts = (1234.5).toLocaleString()
+      .match(/(\D+)/g);
 
-const localStringToNumber = (value: string): string | null => {
-  const parts = (1234.5).toLocaleString()
-    .match(/(\D+)/g);
+    const unformatted =
+      parts &&
+      value
+        .split(parts[0])
+        .join("")
+        .split(parts[1])
+        .join(".");
 
-  const unformatted =
-    parts &&
-    value
-      .split(parts[0])
-      .join("")
-      .split(parts[1])
-      .join(".");
-
-  return unformatted;
-};
+    return unformatted;
+  };
+}
 
 export default ErrorHandlerHOC(TextField);
