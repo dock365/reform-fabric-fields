@@ -25,6 +25,13 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
     validationRules: {}
   }
 
+  constructor(props: IFieldRenderProps & propsOverride) {
+    super(props);
+
+    this._onChange = this._onChange.bind(this);
+    this._onBlur = this._onBlur.bind(this);
+  }
+
   public render() {
     return (
       <FabricTextField
@@ -35,19 +42,19 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
         onClick={this.props.onClick}
         placeholder={this.props.placeholder}
         maxLength={this.props.customProps.maxLength} // For number validation also
-        onChange={this._onChange}
         onBlur={this._onBlur}
+        onChanged={this._onChange}
       />
     )
   }
 
-  private _onChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  private _onChange = (value: any) => {
     // const inputValue = event.currentTarget.value;
-
     // const value = this.props.localeString ? inputValue.toLocaleString() : inputValue;
     if (this.props.onChange) {
-      this.props.onChange(event.currentTarget.value);
+      this.props.onChange(value);
     }
+
 
     // const value: any =
     //   (
@@ -71,29 +78,12 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
     // }
   }
 
-  private _onBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    // const inputValue = event.currentTarget.value;
-
-    // const value = this.props.localeString ? inputValue.toLocaleString() : inputValue;
-    if (this.props.onChange) {
-      this.props.onChange(event.currentTarget.value);
+  private _onBlur(event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    if (this.props.onBlur) {
+      this.props.onBlur(event.currentTarget.value);
     }
-    // const value: any =
-    //   (
-    //     this.props.customProps.localeString &&
-    //     this._localStringToNumber(e.currentTarget.value)) ||
-    //   e.currentTarget.value;
-    // if (this.props.onBlur) {
-    //   const isNumber = this.props.validationRules && this.props.validationRules.type === validationTypes.Number && !isNaN(Number(value));
-
-    //   // this.props.onBlur(value)
-    //   this.props.onBlur(
-    //     isNumber
-    //       ? (Number(value) == value) ? value : Number(value)
-    //       : value,
-    //   );
-    // }
   }
+
 }
 
 export default ErrorHandlerHOC(TextField);
