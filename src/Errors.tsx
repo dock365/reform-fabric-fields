@@ -6,6 +6,7 @@ const Errors: React.SFC<{ errors: string }> = ({ errors }) => (
     fontSize: "12px",
     fontWeight: 400,
     lineHeight: 1.3,
+    marginTop: "8px"
   }}>
     {errors && <div className="error-item">{errors}</div>}
   </div>
