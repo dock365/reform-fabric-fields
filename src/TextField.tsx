@@ -36,7 +36,7 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
     return (
       <FabricTextField
         readOnly={this.props.readOnly}
-        value={this.props.value}
+        value={this.props.value || this.props.value === 0 ? `${this.props.value}` : this.props.value}
         componentRef={this.props.componentRef}
         label={this.props.label}
         onClick={this.props.onClick}
