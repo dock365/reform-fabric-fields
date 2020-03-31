@@ -6,7 +6,7 @@ import OptionsPickerMenu from './OptionsPickerMenu/OptionsPickerMenu';
 import { IOptionsPickerOption } from './OptionsPickerMenu/IOptionsPickerMenuProps';
 
 export default class OptionsPicker extends React.Component<IOptionsPickerProps, IOptionsPickerState> {
-  private _menuButtonElement = React.createRef<HTMLElement>();
+  private _menuButtonElement = React.createRef<HTMLButtonElement>();
 
   constructor(props: IOptionsPickerProps) {
     super(props);
