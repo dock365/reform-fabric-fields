@@ -90,12 +90,14 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
     //       : value,
     //   );
     // }
-  };
+  }
 
   private _onBlur(event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
     if (this.props.onBlur) {
       this.props.onBlur(event.currentTarget.value);
     }
+
+    this._onChange(this.props.value);
   }
 
 }
