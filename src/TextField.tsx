@@ -19,11 +19,11 @@ type propsOverride = {
 };
 
 class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
-  static defaultProps = {
+  public static defaultProps = {
     customProps: {},
     value: "",
-    validationRules: {}
-  }
+    validationRules: {},
+  };
 
   constructor(props: IFieldRenderProps & propsOverride) {
     super(props);
@@ -45,16 +45,30 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
         onBlur={this._onBlur}
         onChanged={this._onChange}
       />
-    )
+    );
   }
 
   private _onChange = (value: any) => {
     // const inputValue = event.currentTarget.value;
     // const value = this.props.localeString ? inputValue.toLocaleString() : inputValue;
+
+    if (
+      this.props.validationRules &&
+      this.props.validationRules.type === validationTypes.Number &&
+      !this.props.customProps.localeString
+    ) {
+      if (isNaN(value)) {
+        this.props.onChange(value);
+      } else {
+        this.props.onChange(Number(value));
+      }
+
+      return;
+    }
+
     if (this.props.onChange) {
       this.props.onChange(value);
     }
-
 
     // const value: any =
     //   (
@@ -76,7 +90,7 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
     //       : value,
     //   );
     // }
-  }
+  };
 
   private _onBlur(event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
     if (this.props.onBlur) {
