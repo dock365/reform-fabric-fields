@@ -43,12 +43,12 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
         placeholder={this.props.placeholder}
         maxLength={this.props.customProps.maxLength} // For number validation also
         onBlur={this._onBlur}
-        onChanged={this._onChange}
+        onChange={this._onChange}
       />
     );
   }
 
-  private _onChange = (value: any) => {
+  private _onChange = (e: any, value: any) => {
     // const inputValue = event.currentTarget.value;
     // const value = this.props.localeString ? inputValue.toLocaleString() : inputValue;
 
@@ -97,7 +97,7 @@ class TextField extends React.Component<IFieldRenderProps & propsOverride, {}> {
       this.props.onBlur(event.currentTarget.value);
     }
 
-    this._onChange(this.props.value);
+    this._onChange(event, this.props.value);
   }
 
 }
