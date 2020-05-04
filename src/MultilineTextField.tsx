@@ -41,7 +41,7 @@ class MultilineTextField extends React.PureComponent<propsOverride, {}> {
         placeholder={this.props.placeholder}
         readOnly={this.props.readOnly}
         multiline
-        onChanged={(value) => {
+        onChange={(e, value) => {
           if (this.props.onChange)
             this.props.onChange(
               this.props.validationRules &&
